@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <a href="{% url 'landing' %}">Login</a>
   <h2>Sign up</h2>
   <form method="post">
     {% csrf_token %}

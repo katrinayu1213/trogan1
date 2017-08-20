@@ -9,5 +9,6 @@ urlpatterns = [
         url(r'^$', auth_views.LoginView.as_view(template_name='landing.html'), name='landing'),
         url(r'^signup/$', core_views.signup, name='signup'),
         url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+        url(r'^home/$', core_views.home, name='home'),
 
 ]
