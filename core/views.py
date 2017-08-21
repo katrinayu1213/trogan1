@@ -1,6 +1,8 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from .forms import PatientForm
+from django.http import HttpResponseRedirect
 
 def signup(request):
     if request.method == 'POST':
@@ -21,3 +23,14 @@ def base(request):
 
 def home(request):
         return render(request, 'home.html')
+
+def post_demogs(request):
+    form = PatientForm(request.POST)
+    if form.is_valid():
+        form.save(commit=True)
+    return HttpResponseRedirect('/home/')
+
+def demographics(request):
+    form = PatientForm()
+    return render(request, 'demographics.html', {'form': form})
+
