@@ -12,5 +12,6 @@ urlpatterns = [
         url(r'^home/$', core_views.home, name='home'),
         url(r'^demographics/$', core_views.demographics, name='demographics'),
         url(r'^demographics/post_demogs/$', core_views.post_demogs, name='post_demogs'),
+        url(r'^triage/$', core_views.PatientListView.as_view(), name='triage'),
 
 ]

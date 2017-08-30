@@ -36,7 +36,7 @@ class patient(models.Model):
     refugee_reason = models.CharField(max_length=500,blank=True)
     previous_patient = models.CharField(max_length=1, choices=yes_no_choices, default=No)
     pregnant = models.CharField(max_length=1, choices=yes_no_choices, default=No)
-    chief_complaint = models.CharField(max_length=500)
+    chief_complaint = models.TextField(max_length=500)
     record_date = models.DateTimeField(default=timezone.now())
 
     def __str__(self):

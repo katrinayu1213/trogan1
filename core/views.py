@@ -4,6 +4,12 @@ from django.shortcuts import render, redirect
 from .forms import PatientForm
 from django.http import HttpResponseRedirect
 
+from django.views.generic import ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django_tables2 import RequestConfig
+from .models import patient
+from .tables import PatientTable
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -34,3 +40,16 @@ def demographics(request):
     form = PatientForm()
     return render(request, 'demographics.html', {'form': form})
 
+class PatientListView(LoginRequiredMixin, ListView):
+  model = patient
+  template_name = 'patient_list.html'
+  context_object_name = 'patients'
+  ordering = ['id']
+
+  def get_context_data(self, **kwargs):
+    context = super(PatientListView, self).get_context_data(**kwargs)
+    context['nav_patient'] = True
+    table = PatientTable(patient.objects.all().order_by('-pk'))
+    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+    context['table'] = table
+    return context
