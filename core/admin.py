@@ -1,6 +1,8 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
 from .models import patient
+from django.utils import timezone
+import datetime
 
 
 # Register your models here.
@@ -25,23 +27,46 @@ def gen_med(modeladmin, request, queryset):
 #All Patients in System
 class AllPatientAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('patient_id', 'first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
-                    'chief_complaint', 'record_date', 'status', 'department',)
+                    'chief_complaint', 'status', 'department',)
     actions = [being_seen, waiting, discharged, physical_therapy, gen_med,]
 
-admin.site.register(patient, AllPatientAdmin)
 
+# Today's patients proxy model
+class TodayPatient(patient):
+    class Meta:
+        proxy = True
 
 #Today's patients
-class TodayPatientAdmin(SortableAdminMixin, admin.ModelAdmin):
-    def get_queryset(self):
-        return super(TodayPatientAdmin, self).get_queryset().filter(patient.was_created_today()== True)
-    actions = [being_seen, waiting, discharged,]
+class TodayPatientAdmin(AllPatientAdmin):
+    def get_queryset(self,request):
+        now = timezone.now()
+        return patient.objects.filter(record_date__day=now.day)
 
 
-admin.site.register(patient, TodayPatientAdmin)
+# Today's PT Patients Proxy model
+class PTPatient(patient):
+    class Meta:
+        proxy = True
+
+# Today's PT Patients
+class PTPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(record_date__day=now.day).filter(department='PT')
 
 
+# Today's Gen Med Patients Proxy model
+class GMPatient(patient):
+    class Meta:
+        proxy = True
 
+#Today's Gen Med Patients
+class GMPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(record_date__day=now.day).filter(department='GM')
 
-
-
+admin.site.register(patient, AllPatientAdmin)
+admin.site.register(TodayPatient, TodayPatientAdmin)
+admin.site.register(PTPatient, PTPatientAdmin)
+admin.site.register(GMPatient, GMPatientAdmin)
