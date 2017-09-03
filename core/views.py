@@ -49,7 +49,7 @@ class PatientListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super(PatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.all().order_by('-pk'))
+    table = PatientTable(patient.objects.all().order_by('patient_id'))
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context

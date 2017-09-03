@@ -9,6 +9,6 @@ class PatientTable(tables.Table):
         model = patient
         fields = ('patient_id', 'last_name',
                   'first_name', 'sex', 'age',
-                  'pregnant', 'chief_complaint')
+                  'pregnant', 'chief_complaint', 'new')
         attrs = {"class": "table-striped table-bordered"}
         empty_text = "There are no customers matching the search criteria..."
