@@ -1,6 +1,6 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
-from .models import patient
+from .models import patient, encounter
 from django.utils import timezone
 import datetime
 
@@ -24,10 +24,11 @@ def physical_therapy(modeladmin, request, queryset):
 def gen_med(modeladmin, request, queryset):
     queryset.update(department='GM')
 
-#All Patients in System
+
+# All Patients in System
 class AllPatientAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('patient_id', 'first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
-                    'chief_complaint', 'status', 'department',)
+    list_display = ('id','first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
+                    'chief_complaint', 'status', 'department', 'created_at', 'provider_id')
     actions = [being_seen, waiting, discharged, physical_therapy, gen_med,]
 
 
@@ -36,11 +37,11 @@ class TodayPatient(patient):
     class Meta:
         proxy = True
 
-#Today's patients
+# Today's patients
 class TodayPatientAdmin(AllPatientAdmin):
     def get_queryset(self,request):
         now = timezone.now()
-        return patient.objects.filter(record_date__day=now.day)
+        return patient.objects.filter(created_at__day=now.day)
 
 
 # Today's PT Patients Proxy model
@@ -52,7 +53,7 @@ class PTPatient(patient):
 class PTPatientAdmin(AllPatientAdmin):
     def get_queryset(self, request):
         now = timezone.now()
-        return patient.objects.filter(record_date__day=now.day).filter(department='PT')
+        return patient.objects.filter(created_at__day=now.day).filter(department='PT')
 
 
 # Today's Gen Med Patients Proxy model
@@ -60,13 +61,21 @@ class GMPatient(patient):
     class Meta:
         proxy = True
 
-#Today's Gen Med Patients
+# Today's Gen Med Patients
 class GMPatientAdmin(AllPatientAdmin):
     def get_queryset(self, request):
         now = timezone.now()
-        return patient.objects.filter(record_date__day=now.day).filter(department='GM')
+        return patient.objects.filter(created_at__day=now.day).filter(department='GM')
+
+
+# Encounters
+class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('patient_id', 'back_pain', 'fever', 'wheelchair', 'manipulation', 'needling', 'cupping', 'improvement',
+                    'ref_gen_med', 'ref_ortho', 'ref_prosth', 'ref_out', 'supplies_used', 'provider_id')
+
 
 admin.site.register(patient, AllPatientAdmin)
 admin.site.register(TodayPatient, TodayPatientAdmin)
 admin.site.register(PTPatient, PTPatientAdmin)
 admin.site.register(GMPatient, GMPatientAdmin)
+admin.site.register(encounter, EncounterAdmin)

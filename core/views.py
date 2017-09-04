@@ -1,8 +1,8 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-from .forms import PatientForm
-from django.http import HttpResponseRedirect
+from .forms import PatientForm, EncounterForm
+from django.http import HttpResponseRedirect, Http404
 
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -53,3 +53,18 @@ class PatientListView(LoginRequiredMixin, ListView):
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context
+
+def post_encounter(request):
+    form = EncounterForm(request.POST)
+    if not request.user.is_authenticated():
+        raise Http404
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.provider_id = request.user
+        instance.save()
+     #   form.save(commit=True)
+    return HttpResponseRedirect('/home/')
+
+def patient_encounter(request):
+    form = EncounterForm()
+    return render(request, 'patient_encounter.html', {'form': form})

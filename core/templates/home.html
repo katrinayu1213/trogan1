@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'logout' %}">Logout</a>
-<a href="{% url 'demographics' %}">New Patient Intake</a>
+<div class="container col-md-12 col-sm-8 col-xs-4">
+   <div class="container text-center">
+       <div>
+     {% if user.is_authenticated %}
+             <h1>You are currently logged in as {{ user.username }}</h1>
+       </div>
+       <div>
+             <p class="lead"><a href="{% url 'demographics' %}">Enter a New Patient</a></p>
+             <p class="lead"><a href="{% url 'patient_encounter' %}">Create a New Encounter</a></p>
+       </div>
+     {% else %}
+       <div>
+         <h2><a href="{% url 'landing' %}">Please Log In Here</a></h2>
+       </div>
+      {% endif %}
+   </div>
+</div>
+
 {% endblock %}

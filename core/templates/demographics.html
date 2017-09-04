@@ -1,10 +1,62 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Patient Intake Form</h2>
-<form action="post_demogs/" method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Submit" />
-</form>
+<div class="container text-center col-md-10 col-sm-8 col-xs-6">
+    <div class="card-block">
+    <h2 class="brand">Patient Intake Form</h2>
+    </div>
+    <br>
+    <form action="post_demogs/" method="post">
+        {% csrf_token %}
+        <div class="container col-md-4 col-sm-6 col-xs-6">
+            <div class="form-group">
+            {{ form.first_name }}
+                <br>
+            {{ form.last_name }}
+                <br>
+            {{ form.age }}
+                <br>
+            {{ form.phone }}
+                <br>
+                <p class="lead">What is their sex?</p>
+            {{ form.sex }}
+                <br>
+                <br>
+                <p class="lead">Are They Pregnant?</p>
+            {{ form.pregnant }}
+                <br>
+                <br>
+                <p class="lead">City of Residence </p>
+            {{ form.city }}
+                <br>
+                <br>
+            {{ form.city_other }}
+                <br>
+                <p class="lead">Have They Heard of STAND before?</p>
+            {{ form.heard_of_stand }}
+                <br>
+                <br>
+            {{ form.heard_of_stand_how }}
+                <br>
+                <p class="lead">Have They Ever Been Forced to Leave Their Home?</p>
+            {{ form.refugee_ever }}
+                <br>
+                <br>
+            {{ form.refugee_reason }}
+                <br>
+                <p class="lead">Have We Treated Them Before?</p>
+            {{ form.previous_patient }}
+                <br>
+                <br>
+            {{ form.chief_complaint }}
+                <br>
+                <br>
+            <input type="submit" class="btn btn-lg btn-primary" value="Submit" />
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<br>
+
 {% endblock %}

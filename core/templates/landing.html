@@ -1,15 +1,21 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Login{% endblock %}
 
 {% block content %}
-<h2>Welcome to the STAND EHR: Trogan1</h2>
-<h3>Please Log in to Continue</h3>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
-<h5>Need to sign up? You can do that <a href="{% url 'signup' %}">here</a></h5>
+<div class="container text-center col-md-12 col-sm-12 col-xs-8">
+
+    <h2>Welcome to the STAND EHR: Trogan1</h2>
+    <h3>Please Log in to Continue</h3>
+        <div class="container col-md-8 col-sm-6 col-xs-4">
+          <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-lg btn-primary">Log In</button>
+          </form>
+        </div>
+    <h5>Need to sign up? You can do that <a href="{% url 'signup' %}">here</a></h5>
+</div>
+
 {% endblock %}
 

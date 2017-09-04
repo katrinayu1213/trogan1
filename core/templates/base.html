@@ -1,11 +1,34 @@
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>{% block title %}Trogan 1{% endblock %}</title>
-    </head>
 
-{% block content %}
-{% endblock %}
+<!DOCTYPE html5>
+<html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <link rel="stylesheet" type="text/css"
+           href="{% static 'bootstrap.css' %}" />
+     <script type="text/javascript" src="{% static 'bootstrap.js' %}"></script>
+   <title>{% block title %}Trogan 1{% endblock %}</title>
+ </head>
+ <body>
+<div class="container col-md-12 col-sm-6 col-xs-4">
+        <nav class="navbar navbar-light bg-faded">
+          <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/stand_logo.jpg' %}" width="200" height="60" class="d-inline-block align-top" alt="">
+          </a>
+          <h4>Trogan 1</h4>
+          <div class="navbar navbar-light bg-faded" id="navbarNavAltMarkup">
+              <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a>
+              <a class="nav-item nav-link active" href="{% url 'logout' %}">Log Out</a>
+          </div>
+        </nav>
+       </div>
+   <main>
+       <br>
+       <br>
+     {% block content %}
+     {% endblock %}
+   </main>
+ </body>
+</html>
+
