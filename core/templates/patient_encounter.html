@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
 
 {% block content %}
-<div class="container text-center col-md-12 col-sm-8 col-xs-4">
+<div class="container text-center col-md-8 col-sm-6 col-xs-4">
 <h2 class="brand">Patient Encounter</h2>
-<form action="post_encounter/" method="post">
-    {% csrf_token %}
-      <div class="container">
-        <div class="row">
-        {% for field in form  %}
-              <div class="col-md-6 col-sm-8 col-xs-4">
-              <b>{{ field.label_tag }}</b> - {{ field }}
-              </div>
-        {% endfor %}
-        </div>
-  </div>
-    <button type="submit" value="Submit" class="btn btn-lg btn-primary">Submit</button>
-</form>
+    <br>
+{% crispy form %}
+</div>
+<br>
+<div class="container text-center cold-md-8 col-sm-6 col-xs-4">
+<img src="{% static 'images/groc.png' %}" width="700" height="200">
 </div>
 {% endblock %}
 

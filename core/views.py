@@ -40,6 +40,10 @@ def demographics(request):
     form = PatientForm()
     return render(request, 'demographics.html', {'form': form})
 
+def c_demographics(request):
+    form = PatientForm()
+    return render(request, 'crispy_demographics.html', {'form': form})
+
 class PatientListView(LoginRequiredMixin, ListView):
   model = patient
   template_name = 'patient_list.html'

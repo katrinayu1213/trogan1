@@ -15,5 +15,4 @@ urlpatterns = [
         url(r'^triage/$', login_required(core_views.PatientListView.as_view()), name='triage'),
         url(r'^encounter/$', login_required(core_views.patient_encounter), name='patient_encounter'),
         url(r'^encounter/post_encounter/$', login_required(core_views.post_encounter), name='post_demogs'),
-
 ]
