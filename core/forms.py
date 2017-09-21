@@ -1,7 +1,7 @@
 from django import forms
 from .models import patient, encounter
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div, HTML
 from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab
 
 class PatientForm(forms.ModelForm):
@@ -110,7 +110,61 @@ class EncounterForm(forms.ModelForm):
                     'Manual_Therapy', 'Education', 'Exercise', 'Refer_To_Gen_Med', 'Refer_To_Peds', 'Refer_To_Neuro',
                     'Refer_To_Wound', 'Refer_To_Orthotics', 'Refer_To_Prosthetics', 'Refer_Out_Of_Stand', 'Cane', 'Crutches',
                     'Walker', 'Wheel_Chair', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back', 'Ankle', 'AFO', 'Provider_Notes',
-                  'Supplies_Used','Back_Pain']
+                  'Supplies_Used', 'Back_Pain']
+    Systolic = forms.CharField(
+        required=False)
+    Diastolic = forms.CharField(
+        required=False)
+    Infection_UTI = forms.BooleanField(
+        required=False)
+    Infection_Vaginal = forms.BooleanField(
+        required=False)
+    Infection_Other = forms.BooleanField(
+        required=False)
+    Manual_Therapy = forms.BooleanField(
+        required=False)
+    Education = forms.BooleanField(
+        required=False)
+    Exercise = forms.BooleanField(
+        required=False)
+    Refer_To_Gen_Med = forms.BooleanField(
+        required=False)
+    Refer_To_Peds = forms.BooleanField(
+        required=False)
+    Refer_To_Neuro = forms.BooleanField(
+        required=False)
+    Refer_To_Wound = forms.BooleanField(
+        required=False)
+    Refer_To_Orthotics = forms.BooleanField(
+        required=False)
+    Refer_To_Prosthetics = forms.BooleanField(
+        required=False)
+    Refer_Out_Of_Stand = forms.BooleanField(
+        required=False)
+    Cane = forms.BooleanField(
+        required=False)
+    Crutches = forms.BooleanField(
+        required=False)
+    Walker = forms.BooleanField(
+        required=False)
+    Wheel_Chair = forms.BooleanField(
+        required=False)
+    Shoulder = forms.BooleanField(
+        required=False)
+    Wrist = forms.BooleanField(
+        required=False)
+    Knee = forms.BooleanField(
+        required=False)
+    Elbow = forms.BooleanField(
+        required=False)
+    Back = forms.BooleanField(
+        required=False)
+    Ankle = forms.BooleanField(
+        required=False)
+    AFO = forms.BooleanField(
+        required=False)
+    Back_Pain = forms.BooleanField(
+        required=False)
 
 
     def __init__(self, *args, **kwargs):
@@ -129,7 +183,9 @@ class EncounterForm(forms.ModelForm):
                     'patient_id',
                     'Provider_Notes',
                     'Supplies_Used',
-                    'Improvement'
+                    'Improvement',
+                    HTML("""<img src=/static/images/groc.png width="700" height="200">
+                """),
                 ),
                 Tab(
                     'Condition',

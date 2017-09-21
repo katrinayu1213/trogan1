@@ -102,8 +102,8 @@ class encounter(models.Model):
     Exercise = models.BooleanField(default=False)
     Improvement = models.IntegerField(choices=imp_choices)
 
-    Systolic = models.IntegerField()
-    Diastolic = models.IntegerField()
+    Systolic = models.CharField(max_length=4, blank=True, default='0')
+    Diastolic = models.CharField(max_length=4, blank=True, default='0')
     Infection_UTI = models.BooleanField(default=False)
     Infection_Vaginal = models.BooleanField(default=False)
     Infection_Other = models.BooleanField(default=False)

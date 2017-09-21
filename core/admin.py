@@ -71,7 +71,7 @@ class GMPatientAdmin(AllPatientAdmin):
 # Encounters
 class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('patient_id', 'Supplies_Used', 'Provider_Notes'
-                    , 'provider_id')
+                    , 'provider_id', 'Systolic')
 
 
 admin.site.register(patient, AllPatientAdmin)
