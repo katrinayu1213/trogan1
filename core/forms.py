@@ -19,8 +19,6 @@ class PatientForm(forms.ModelForm):
         required=False)
     phone = forms.CharField(
         required=True)
-    chief_complaint = forms.CharField(
-        required=True)
     heard_of_stand = forms.TypedChoiceField(
         label="Have you heard of Stand before?",
         choices=(('Y', 'Yes'), ('N', 'No')),
@@ -83,18 +81,19 @@ class PatientForm(forms.ModelForm):
                     InlineRadios('photo_permission'),
                     ),
            Fieldset('Contact data',
-                    Field('city', placeholder='What city is the patient from?'),
+                    Field('city', placeholder='From What City?'),
                     Field('phone', placeholder="Phone Number"),
                     ),
            Fieldset('Patient History',
                     InlineRadios('previous_patient'),
                     InlineRadios('refugee_ever'),
-                    Field('refugee_reason',placeholder='If yes, why did they need to leave?'),
+                    Field('refugee_reason',placeholder='If yes, why?'),
                     ),
            InlineRadios('heard_of_stand'),
-           Field('heard_of_stand_how', placeholder='If yes, how did they hear of STAND?'),
+           Field('heard_of_stand_how', placeholder='If yes, how?'),
            Fieldset('Chief Complaint',
-                    Field('chief_complaint', placeholder='Why are they here today?')
+                    Field('chief_complaint', placeholder='Why are they here today?'),
+                    HTML("""<br>""")
                     )
 
         )
