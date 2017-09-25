@@ -86,6 +86,71 @@ class GMPatientAdmin(AllPatientAdmin):
         now = timezone.now()
         return patient.objects.filter(created_at__day=now.day).filter(department='GM')
 
+# Today's Peds patients proxy model
+class PedsPatient(patient):
+    class Meta:
+        proxy = True
+
+# Today's Peds patients
+class PedsPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(created_at__day=now.day).filter(department='P2')
+
+# Today's Prosthetics patients proxy model
+class ProsthPatient(patient):
+    class Meta:
+        proxy = True
+
+# Today's Prosthetics patients
+class ProsthPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(created_at__day=now.day).filter(department='P1')
+
+# Today's Prosthetics patients proxy model
+class WoundPatient(patient):
+    class Meta:
+        proxy = True
+
+# Today's Prosthetics patients
+class WoundPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(created_at__day=now.day).filter(department='W')
+
+# Today's Pelvic patients proxy model
+class PelvicPatient(patient):
+    class Meta:
+        proxy = True
+
+# Today's Pelvic patients
+class PelvicPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(created_at__day=now.day).filter(department='P3')
+
+# Today's Pelvic patients proxy model
+class DischargedPatient(patient):
+    class Meta:
+        proxy = True
+
+# Today's Pelvic patients
+class DischargedPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(created_at__day=now.day).filter(status='D')
+
+# Today's Pelvic patients proxy model
+class WaitingPatient(patient):
+    class Meta:
+        proxy = True
+
+# Today's Pelvic patients
+class WaitingPatientAdmin(AllPatientAdmin):
+    def get_queryset(self, request):
+        now = timezone.now()
+        return patient.objects.filter(created_at__day=now.day).filter(status='W')
 
 # Encounters
 class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
@@ -98,3 +163,10 @@ admin.site.register(TodayPatient, TodayPatientAdmin)
 admin.site.register(PTPatient, PTPatientAdmin)
 admin.site.register(GMPatient, GMPatientAdmin)
 admin.site.register(encounter, EncounterAdmin)
+admin.site.register(PedsPatient, PedsPatientAdmin)
+admin.site.register(ProsthPatient, ProsthPatientAdmin)
+admin.site.register(WoundPatient, WoundPatientAdmin)
+admin.site.register(PelvicPatient, PelvicPatientAdmin)
+admin.site.register(DischargedPatient, DischargedPatientAdmin)
+admin.site.register(WaitingPatient, WaitingPatientAdmin)
+
