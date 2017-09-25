@@ -24,11 +24,14 @@ Yes = 'Y'
 No = 'N'
 yes_no_choices = ((Yes, 'Yes'), (No, 'No'))
 
-# patient status
+# status choices
 waiting = 'W'
 being_seen = 'B'
 discharged = 'D'
-status_choices = ((waiting, 'Waiting'), (being_seen, 'Being Seen'), (discharged, 'Discharged'))
+no_show = 'NS'
+returning = 'R'
+status_choices = ((waiting, 'Waiting'), (being_seen, 'Being Seen'), (discharged, 'Discharged'), (no_show, 'No Show'),
+                  (returning, 'Returning later'))
 
 # department
 pt = 'PT'
@@ -75,7 +78,7 @@ class patient(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     chief_complaint = models.TextField(max_length=500)
     my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
-    status = models.CharField(max_length=1, choices=status_choices, default=waiting)
+    status = models.CharField(max_length=2, choices=status_choices, default=waiting)
     department = models.CharField(max_length=2, choices=dept_choices, default=pt)
     provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     photo_permission = models.CharField(max_length=1, choices=yes_no_choices, default=No)

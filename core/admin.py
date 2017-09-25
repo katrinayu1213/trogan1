@@ -18,6 +18,12 @@ def waiting(modeladmin, request, queryset):
 def discharged(modeladmin, request, queryset):
     queryset.update(status='D')
 
+def no_show(modeladmin, request, queryset):
+    queryset.update(status='NS')
+
+def returning(modeladmin, request, queryset):
+    queryset.update(status='R')
+
 def physical_therapy(modeladmin, request, queryset):
     queryset.update(department='PT')
 
@@ -41,7 +47,8 @@ def pelvic(modeladmin, request, queryset):
 class AllPatientAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('id','first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
                     'chief_complaint', 'status', 'department', 'created_at', 'provider_id')
-    actions = [being_seen, waiting, discharged, physical_therapy, gen_med, wound, prosth, peds, pelvic]
+    actions = [being_seen, waiting, discharged, no_show, returning, physical_therapy, gen_med, wound, prosth, peds,
+               pelvic]
 
 
 # Today's patients proxy model
