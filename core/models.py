@@ -33,8 +33,12 @@ status_choices = ((waiting, 'Waiting'), (being_seen, 'Being Seen'), (discharged,
 # department
 pt = 'PT'
 gen_med = 'GM'
+wound = 'W'
+prosth = 'P1'
+peds = 'P2'
+pelvic = 'P3'
 
-dept_choices = ((pt, 'Physical Therapy'), (gen_med, 'Gen Med'))
+dept_choices = ((pt, 'Physical Therapy'), (gen_med, 'Gen Med'), (wound, 'Wound'), (prosth, 'Prosthetics'), (peds, 'Peds'), (pelvic, 'Pelvic'))
 
 # improvement
 neg_five = -5

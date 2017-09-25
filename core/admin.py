@@ -24,12 +24,24 @@ def physical_therapy(modeladmin, request, queryset):
 def gen_med(modeladmin, request, queryset):
     queryset.update(department='GM')
 
+def wound(modeladmin, request, queryset):
+    queryset.update(department='W')
+
+def prosth(modeladmin, request, queryset):
+    queryset.update(department='P1')
+
+def peds(modeladmin, request, queryset):
+    queryset.update(department='P2')
+
+def pelvic(modeladmin, request, queryset):
+    queryset.update(department='P3')
+
 
 # All Patients in System
 class AllPatientAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('id','first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
                     'chief_complaint', 'status', 'department', 'created_at', 'provider_id')
-    actions = [being_seen, waiting, discharged, physical_therapy, gen_med,]
+    actions = [being_seen, waiting, discharged, physical_therapy, gen_med, wound, prosth, peds, pelvic]
 
 
 # Today's patients proxy model
