@@ -106,8 +106,8 @@ class EncounterForm(forms.ModelForm):
     class Meta:
         model = encounter
         fields = ['patient_id', 'Systolic', 'Diastolic', 'Infection_UTI', 'Infection_Vaginal', 'Infection_Other', 'Improvement',
-                    'Manual_Therapy', 'Education', 'Exercise', 'Refer_To_Gen_Med', 'Refer_To_Peds', 'Refer_To_Neuro',
-                    'Refer_To_Wound', 'Refer_To_Orthotics', 'Refer_To_Prosthetics', 'Refer_Out_Of_Stand', 'Cane', 'Crutches',
+                    'Manual_Therapy', 'Education', 'Exercise', 'Gen_Med', 'Peds', 'Neuro',
+                    'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches',
                     'Walker', 'Wheel_Chair', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back', 'Ankle', 'AFO', 'Provider_Notes',
                   'Supplies_Used', 'Back_Pain']
     Systolic = forms.CharField(
@@ -126,19 +126,21 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Exercise = forms.BooleanField(
         required=False)
-    Refer_To_Gen_Med = forms.BooleanField(
+    Gen_Med = forms.BooleanField(
         required=False)
-    Refer_To_Peds = forms.BooleanField(
+    Peds = forms.BooleanField(
         required=False)
-    Refer_To_Neuro = forms.BooleanField(
+    Neuro = forms.BooleanField(
         required=False)
-    Refer_To_Wound = forms.BooleanField(
+    Wound = forms.BooleanField(
         required=False)
-    Refer_To_Orthotics = forms.BooleanField(
+    Orthotics = forms.BooleanField(
         required=False)
-    Refer_To_Prosthetics = forms.BooleanField(
+    Prosthetics = forms.BooleanField(
         required=False)
-    Refer_Out_Of_Stand = forms.BooleanField(
+    Gen_PT = forms.BooleanField(
+        required=False)
+    Pelvic_Health = forms.BooleanField(
         required=False)
     Cane = forms.BooleanField(
         required=False)
@@ -163,6 +165,8 @@ class EncounterForm(forms.ModelForm):
     AFO = forms.BooleanField(
         required=False)
     Back_Pain = forms.BooleanField(
+        required=False)
+    Shoes = forms.BooleanField(
         required=False)
 
 
@@ -203,14 +207,15 @@ class EncounterForm(forms.ModelForm):
                     'Exercise',
                 ),
                 Tab(
-                    'Referrals',
-                    'Refer_To_Gen_Med',
-                    'Refer_To_Peds',
-                    'Refer_To_Neuro',
-                    'Refer_To_Wound',
-                    'Refer_To_Orthotics',
-                    'Refer_To_Prosthetics',
-                    'Refer_Out_Of_Stand'
+                    'Services',
+                    'Gen_Med',
+                    'Peds',
+                    'Neuro',
+                    'Wound',
+                    'Orthotics',
+                    'Prosthetics',
+                    'Gen_PT',
+                    'Pelvic_Health'
                 ),
                 Tab(
                     'Assistive Devices',
@@ -228,6 +233,7 @@ class EncounterForm(forms.ModelForm):
                     'Back',
                     'Ankle',
                     'AFO',
+                    'Shoes'
                 )
             )
         )
