@@ -130,6 +130,11 @@ class encounter(models.Model):
     AFO = models.BooleanField(default=False)
     Shoes = models.BooleanField(default=False)
 
+    #servies
+    Return = models.BooleanField(default=False)
+    Discharged = models.BooleanField(default=False)
+    Refer_Out = models.BooleanField(default=False)
+
     created_at = models.DateTimeField(default=timezone.now)
     my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
     provider_id = models.ForeignKey(settings.AUTH_USER_MODEL)

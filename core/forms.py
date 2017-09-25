@@ -109,7 +109,7 @@ class EncounterForm(forms.ModelForm):
                     'Manual_Therapy', 'Education', 'Exercise', 'Gen_Med', 'Peds', 'Neuro',
                     'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches',
                     'Walker', 'Wheel_Chair', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back', 'Ankle', 'AFO', 'Provider_Notes',
-                  'Supplies_Used', 'Back_Pain']
+                  'Supplies_Used', 'Back_Pain', 'Shoes', 'Gen_PT', 'Pelvic_Health', 'Return', 'Discharged', 'Refer_Out']
     Systolic = forms.CharField(
         required=False)
     Diastolic = forms.CharField(
@@ -168,6 +168,13 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Shoes = forms.BooleanField(
         required=False)
+    Return = forms.BooleanField(
+        required=False)
+    Discharged = forms.BooleanField(
+        required=False)
+    Refer_Out = forms.BooleanField(
+        required=False)
+
 
 
     def __init__(self, *args, **kwargs):
@@ -208,13 +215,13 @@ class EncounterForm(forms.ModelForm):
                 ),
                 Tab(
                     'Services',
+                    'Gen_PT',
                     'Gen_Med',
                     'Peds',
                     'Neuro',
                     'Wound',
                     'Orthotics',
                     'Prosthetics',
-                    'Gen_PT',
                     'Pelvic_Health'
                 ),
                 Tab(
@@ -234,6 +241,12 @@ class EncounterForm(forms.ModelForm):
                     'Ankle',
                     'AFO',
                     'Shoes'
+                ),
+                Tab(
+                    'Plan',
+                    'Return',
+                    'Discharged',
+                    'Refer_Out'
                 )
             )
         )
