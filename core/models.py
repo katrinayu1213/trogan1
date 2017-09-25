@@ -64,7 +64,7 @@ class patient(models.Model):
     first_name = models.CharField(max_length=50)
     sex = models.CharField(max_length=1, choices=sex_choices, default=sex_unknown)
     age = models.IntegerField()
-    phone = models.BigIntegerField()
+    phone = models.CharField(max_length=50, default='1')
     city = models.CharField(max_length=50)
     heard_of_stand = models.CharField(max_length=1, choices=yes_no_choices, default=No)
     heard_of_stand_how = models.CharField(max_length=200, blank=True)
@@ -79,6 +79,7 @@ class patient(models.Model):
     department = models.CharField(max_length=2, choices=dept_choices, default=pt)
     provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     photo_permission = models.CharField(max_length=1, choices=yes_no_choices, default=No)
+    card_ID = models.CharField(max_length=10, blank=False, null=False)
 
 
     class Meta(object):

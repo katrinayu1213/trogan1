@@ -8,7 +8,7 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model = patient
         fields = ['first_name', 'last_name', 'age', 'phone', 'photo_permission', 'city', 'heard_of_stand', 'heard_of_stand_how',
-                  'refugee_ever', 'refugee_reason', 'previous_patient', 'sex', 'pregnant', 'chief_complaint']
+                  'refugee_ever', 'refugee_reason', 'previous_patient', 'sex', 'pregnant', 'chief_complaint','card_ID']
     first_name = forms.CharField(
         required=True)
     last_name = forms.CharField(
@@ -62,6 +62,8 @@ class PatientForm(forms.ModelForm):
         widget=forms.RadioSelect,
         initial='N',
         required=True)
+    card_ID = forms.CharField(
+        required=True)
 
     def __init__(self, *args, **kwargs):
         super(PatientForm, self).__init__(*args, **kwargs)
@@ -72,6 +74,10 @@ class PatientForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.form_action = "post_demogs/"
         self.helper.layout = Layout(
+           Fieldset('What is on their Card?',
+                    Field('card_ID', placeholder='Card Number'),
+                    HTML("""<br>""")
+                    ),
            Fieldset('Personal Information',
                     Field('first_name', placeholder='First Name'),
                     Field('last_name', placeholder="Last Name"),
