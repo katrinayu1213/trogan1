@@ -63,7 +63,7 @@ class patient(models.Model):
     last_name = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
     sex = models.CharField(max_length=1, choices=sex_choices, default=sex_unknown)
-    age = models.IntegerField()
+    age = models.CharField(max_length=10, blank=False)
     phone = models.CharField(max_length=50, default='1')
     city = models.CharField(max_length=50)
     heard_of_stand = models.CharField(max_length=1, choices=yes_no_choices, default=No)
