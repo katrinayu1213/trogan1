@@ -45,7 +45,7 @@ def pelvic(modeladmin, request, queryset):
 
 # All Patients in System
 class AllPatientAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('id','first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
+    list_display = ('id','card_ID','first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
                     'chief_complaint', 'status', 'department', 'created_at', 'provider_id')
     actions = [being_seen, waiting, discharged, no_show, returning, physical_therapy, gen_med, wound, prosth, peds,
                pelvic]
