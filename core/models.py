@@ -86,7 +86,7 @@ class patient(models.Model):
 
 
     class Meta(object):
-        ordering = ('my_order',)
+        ordering = ('my_order', 'card_ID', 'age')
 
     def __str__(self):
         return str(self.id)
