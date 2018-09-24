@@ -130,23 +130,23 @@ class PelvicPatientAdmin(AllPatientAdmin):
         now = timezone.now()
         return patient.objects.filter(created_at__day=now.day).filter(department='P3')
 
-# Today's Pelvic patients proxy model
+# Today's Discharged patients proxy model
 class DischargedPatient(patient):
     class Meta:
         proxy = True
 
-# Today's Pelvic patients
+# Today's Discharged patients
 class DischargedPatientAdmin(AllPatientAdmin):
     def get_queryset(self, request):
         now = timezone.now()
         return patient.objects.filter(created_at__day=now.day).filter(status='D')
 
-# Today's Pelvic patients proxy model
+# Today's Waiting patients proxy model
 class WaitingPatient(patient):
     class Meta:
         proxy = True
 
-# Today's Pelvic patients
+# Today's Waiting patients
 class WaitingPatientAdmin(AllPatientAdmin):
     def get_queryset(self, request):
         now = timezone.now()

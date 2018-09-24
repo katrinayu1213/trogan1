@@ -62,8 +62,9 @@ class PatientForm(forms.ModelForm):
         widget=forms.RadioSelect,
         initial='N',
         required=True)
-    card_ID = forms.CharField(
-        required=True)
+    card_ID = forms.IntegerField(
+        required=True,
+        label="Card Number")
 
     def __init__(self, *args, **kwargs):
         super(PatientForm, self).__init__(*args, **kwargs)

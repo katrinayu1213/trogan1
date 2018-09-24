@@ -7,8 +7,8 @@ class PatientTable(tables.Table):
 
     class Meta:
         model = patient
-        fields = ('patient_id', 'last_name',
+        fields = ('id', 'last_name',
                   'first_name', 'sex', 'age',
-                  'pregnant', 'chief_complaint', 'new')
+                  'pregnant', 'chief_complaint', 'provider_id')
         attrs = {"class": "table-striped table-bordered"}
-        empty_text = "There are no customers matching the search criteria..."
+        empty_text = "There are no patients matching the search criteria..."

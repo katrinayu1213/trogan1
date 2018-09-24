@@ -24,11 +24,11 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
+def home(request):
+    return render(request, 'home.html', {'table': table})
+
 def base(request):
         return render(request, 'base.html')
-
-def home(request):
-        return render(request, 'home.html')
 
 def post_demogs(request):
     form = PatientForm(request.POST)
@@ -53,7 +53,36 @@ class PatientListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super(PatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.all().order_by('patient_id'))
+    table = PatientTable(patient.objects.all().order_by('id'))
+    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+    context['table'] = table
+    return context
+
+class MyPatientListView(LoginRequiredMixin, ListView):
+  model = patient
+  template_name = 'provider_patient_list.html'
+  context_object_name = 'patients'
+  ordering = ['id']
+
+  def get_context_data(self, **kwargs):
+    context = super(MyPatientListView, self).get_context_data(**kwargs)
+    context['nav_patient'] = True
+    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('id'))
+    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+    context['table'] = table
+    return context
+
+
+class HomePatientListView(LoginRequiredMixin, ListView):
+  model = patient
+  template_name = 'home.html'
+  context_object_name = 'patients'
+  ordering = ['id']
+
+  def get_context_data(self, **kwargs):
+    context = super(HomePatientListView, self).get_context_data(**kwargs)
+    context['nav_patient'] = True
+    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('id'))
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context
