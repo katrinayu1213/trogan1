@@ -53,7 +53,7 @@ class PatientListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super(PatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.all().order_by('id'))
+    table = PatientTable(patient.objects.all().order_by('-order_ID', 'card_ID', 'id'))
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context
@@ -67,7 +67,7 @@ class MyPatientListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super(MyPatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('id'))
+    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('-order_ID', 'card_ID', 'id'))
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context
@@ -82,7 +82,7 @@ class HomePatientListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super(HomePatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('id'))
+    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('-order_ID', 'card_ID', 'id'))
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context
