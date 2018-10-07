@@ -8,13 +8,14 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model = patient
         fields = ['first_name', 'last_name', 'age', 'phone', 'photo_permission', 'city', 'heard_of_stand', 'heard_of_stand_how',
-                  'refugee_ever', 'refugee_reason', 'previous_patient', 'sex', 'pregnant', 'chief_complaint','card_ID']
+                  'refugee_ever', 'refugee_reason', 'previous_patient', 'sex', 'pregnant', 'chief_complaint', 'card_ID']
     first_name = forms.CharField(
         required=True)
     last_name = forms.CharField(
         required=True)
     age = forms.CharField(
-        required=True)
+        required=True,
+        label="Age")
     refugee_reason = forms.CharField(
         required=False)
     phone = forms.CharField(
@@ -65,6 +66,8 @@ class PatientForm(forms.ModelForm):
     card_ID = forms.IntegerField(
         required=True,
         label="Card Number")
+    order_ID = 0
+
 
     def __init__(self, *args, **kwargs):
         super(PatientForm, self).__init__(*args, **kwargs)

@@ -14,6 +14,7 @@ urlpatterns = [
         url(r'^demographics/post_demogs/$', login_required(core_views.post_demogs), name='post_demogs'),
         url(r'^incoming/$', login_required(core_views.PatientListView.as_view()), name='incoming'),
         url(r'^queue/$', login_required(core_views.MyPatientListView.as_view()), name='queue'),
+        url(r'^seen/$', login_required(core_views.MySeenListView.as_view()), name='seen'),
         url(r'^encounter/$', login_required(core_views.patient_encounter), name='patient_encounter'),
         url(r'^encounter/post_encounter/$', login_required(core_views.post_encounter), name='post_demogs'),
 ]

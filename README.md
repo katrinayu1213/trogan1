@@ -22,4 +22,8 @@ Trogan has three main components:
   1.) Patient Intake
   2.) An Admin view used for Queuing and triaging of patients
   3.) Patient Encounter
+
+
+Notes:
+Intake: It is important that all users be logged into the "intake" username during the intake period. If a translator is signed in as a provider during intake, all of the patients that translator captures will be assigned to that provider's queue. 
   

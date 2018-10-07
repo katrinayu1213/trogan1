@@ -1,6 +1,6 @@
 import django_tables2 as tables
 from django_tables2.utils import A
-from .models import patient
+from .models import patient, encounter
 
 
 class PatientTable(tables.Table):
@@ -9,6 +9,16 @@ class PatientTable(tables.Table):
         model = patient
         fields = ('id', 'last_name',
                   'first_name', 'sex', 'age',
-                  'pregnant', 'chief_complaint', 'provider_id')
+                  'pregnant', 'chief_complaint', 'provider_id','department', 'card_ID', 'order_ID')
         attrs = {"class": "table-striped table-bordered"}
-        empty_text = "There are no patients matching the search criteria..."
+        empty_text = "There are no patients matching the search criteria"
+
+
+class EncounterTable(tables.Table):
+
+    class Meta:
+        model = encounter
+        fields = ('id', 'card_id', 'provider_id', "first_name", 'last_name',
+                  'sex', 'age', 'chief_complaint', 'Provider_Notes')
+        attrs = {"class": "table-striped table-bordered"}
+        empty_text = "There are no patients mathing the search criteria"

@@ -1,14 +1,14 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PatientForm, EncounterForm
 from django.http import HttpResponseRedirect, Http404
 
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_tables2 import RequestConfig
-from .models import patient
-from .tables import PatientTable
+from .models import patient, encounter
+from .tables import PatientTable, EncounterTable
 
 def signup(request):
     if request.method == 'POST':
@@ -86,6 +86,20 @@ class HomePatientListView(LoginRequiredMixin, ListView):
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context
+
+class MySeenListView(LoginRequiredMixin, ListView):
+    model = encounter
+    template_name = 'patient_list.html'
+    context_object_name = 'patients'
+    ordering = ['id']
+
+    def get_context_data(self, **kwargs):
+        context = super(MySeenListView, self).get_context_data(**kwargs)
+        context['nav_patient'] = True
+        table = EncounterTable(encounter.objects.select_related('patient_id').filter(provider_id=self.request.user).order_by('id'))
+        RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+        context['table'] = table
+        return context
 
 def post_encounter(request):
     form = EncounterForm(request.POST)

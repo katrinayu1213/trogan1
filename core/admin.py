@@ -42,6 +42,10 @@ def peds(modeladmin, request, queryset):
 def pelvic(modeladmin, request, queryset):
     queryset.update(department='P3')
 
+#def move_to_front(modeladmin, request, queryset):
+
+
+
 
 # All Patients in System
 class AllPatientAdmin(SortableAdminMixin, admin.ModelAdmin):

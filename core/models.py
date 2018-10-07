@@ -66,7 +66,7 @@ class patient(models.Model):
     last_name = models.CharField(max_length=50)
     first_name = models.CharField(max_length=50)
     sex = models.CharField(max_length=1, choices=sex_choices, default=sex_unknown)
-    age = models.CharField(max_length=10, blank=False)
+    age = models.IntegerField(blank=False, null=False)
     phone = models.CharField(max_length=50, default='1')
     city = models.CharField(max_length=50)
     heard_of_stand = models.CharField(max_length=1, choices=yes_no_choices, default=No)
@@ -82,7 +82,8 @@ class patient(models.Model):
     department = models.CharField(max_length=2, choices=dept_choices, default=pt)
     provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
     photo_permission = models.CharField(max_length=1, choices=yes_no_choices, default=No)
-    card_ID = models.PositiveIntegerField(blank=False, null=False)
+    card_ID = models.IntegerField(blank=False, null=False)
+    order_ID = models.IntegerField(blank=False, null=False, default=0)
 
 
     class Meta(object):
@@ -94,6 +95,11 @@ class patient(models.Model):
     def was_created_today(self):
         now = timezone.now()
         return now - datetime.timedelta(hours=16) <= self.record_date <= now
+
+    def save(self):
+        if self.age >= 60:
+            self.order_ID = 1
+        super(patient, self).save()
 
 class encounter(models.Model):
 
@@ -152,6 +158,6 @@ class encounter(models.Model):
         ordering = ('my_order',)
 
     def __str__(self):
-        return str(self.patient_id)
+        return str(self.id)
 
 
