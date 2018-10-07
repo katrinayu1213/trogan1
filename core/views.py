@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PatientForm, EncounterForm
 from django.http import HttpResponseRedirect, Http404
+from django.utils import timezone
 
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -82,8 +83,8 @@ class HomePatientListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super(HomePatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('-order_ID', 'card_ID', 'id'))
-    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+    table = PatientTable(patient.objects.filter(provider_id=self.request.user, status='W', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+    RequestConfig(self.request, paginate={'per_page': 10}).configure(table)
     context['table'] = table
     return context
 

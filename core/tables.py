@@ -9,7 +9,7 @@ class PatientTable(tables.Table):
         model = patient
         fields = ('id', 'last_name',
                   'first_name', 'sex', 'age',
-                  'pregnant', 'chief_complaint', 'provider_id','department', 'card_ID', 'order_ID')
+                  'pregnant', 'chief_complaint', 'provider_id','department', 'card_ID', 'order_ID', 'status')
         attrs = {"class": "table-striped table-bordered"}
         empty_text = "There are no patients matching the search criteria"
 
