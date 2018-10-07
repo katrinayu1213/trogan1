@@ -42,7 +42,11 @@ def peds(modeladmin, request, queryset):
 def pelvic(modeladmin, request, queryset):
     queryset.update(department='P3')
 
-#def move_to_front(modeladmin, request, queryset):
+def make_urgent(modeladmin, request, queryset):
+    queryset.update(order_ID=1)
+
+def make_non_urgent(modeladmin, request, queryset):
+    queryset.update(order_ID=0)
 
 
 
@@ -50,9 +54,9 @@ def pelvic(modeladmin, request, queryset):
 # All Patients in System
 class AllPatientAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('id','card_ID','first_name', 'last_name', 'sex', 'age', 'phone', 'city', 'pregnant',
-                    'chief_complaint', 'status', 'department', 'created_at', 'provider_id')
+                    'chief_complaint', 'status', 'department', 'created_at', 'provider_id', 'order_ID')
     actions = [being_seen, waiting, discharged, no_show, returning, physical_therapy, gen_med, wound, prosth, peds,
-               pelvic]
+               pelvic, make_urgent, make_non_urgent]
 
 
 # Today's patients proxy model
