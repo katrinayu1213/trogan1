@@ -3,6 +3,7 @@ from .models import patient, encounter
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div, HTML
 from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab
+from .models import imp_choices
 
 class PatientForm(forms.ModelForm):
     class Meta:
@@ -119,7 +120,23 @@ class EncounterForm(forms.ModelForm):
                     'Manual_Therapy', 'Education', 'Exercise', 'Gen_Med', 'Peds', 'Neuro',
                     'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches',
                     'Walker', 'Wheel_Chair', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back', 'Ankle', 'AFO', 'Provider_Notes',
-                  'Supplies_Used', 'Back_Pain', 'Shoes', 'Gen_PT', 'Pelvic_Health', 'Return', 'Discharged', 'Refer_Out']
+                  'Supplies_Used', 'Back_Pain', 'Shoes', 'Gen_PT', 'Pelvic_Health','general_pain', 'Return', 'Discharged', 'Refer_Out'
+                  , 'medication_list']
+
+    # choices
+    neg_five = -5
+    neg_four = -4
+    neg_three = -3
+    neg_two = -2
+    neg_one = -1
+    zero = 0
+    one = 1
+    two = 2
+    three = 3
+    four = 4
+    five = 5
+
+    #field definition
     Systolic = forms.CharField(
         required=False)
     Diastolic = forms.CharField(
@@ -184,6 +201,14 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Refer_Out = forms.BooleanField(
         required=False)
+    general_pain = forms.BooleanField(
+        required=False)
+    Improvement = forms.ChoiceField(
+        choices=((neg_five, '-5'), (neg_four, '-4'), (neg_three, '-3'), (neg_two, '-2'), (neg_one, -1), (zero, '0'), (one, '1'),
+               (two, '2'), (three, '3'), (four, '4'), (five, '5')),
+        initial=0,
+        widget=forms.Select,
+        required=False)
 
 
 
@@ -202,6 +227,7 @@ class EncounterForm(forms.ModelForm):
                     'Patient',
                     'patient_id',
                     'Provider_Notes',
+                    'medication_list',
                     'Supplies_Used',
                     'Improvement',
                     HTML("""<img src=/static/images/groc.png width="700" height="200">
@@ -211,6 +237,7 @@ class EncounterForm(forms.ModelForm):
                     'Condition',
                     'Systolic',
                     'Diastolic',
+                    'general_pain',
                     'Back_Pain',
                     'Infection_UTI',
                     'Infection_Vaginal',

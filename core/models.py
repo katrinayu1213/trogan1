@@ -105,6 +105,8 @@ class encounter(models.Model):
 
     patient_id = models.ForeignKey(patient, on_delete=models.CASCADE)
     Back_Pain = models.BooleanField(default=False)
+    general_pain = models.BooleanField(default=False)
+    medication_list = models.TextField(max_length=500, default='none')
 
     Cane = models.BooleanField(default=False)
     Crutches = models.BooleanField(default=False)
@@ -133,7 +135,7 @@ class encounter(models.Model):
     Pelvic_Health = models.BooleanField(default=False)
 
     Provider_Notes = models.TextField(max_length=500)
-    Supplies_Used = models.TextField(max_length=500)
+    Supplies_Used = models.TextField(max_length=500, default='none')
 
     Shoulder = models.BooleanField(default=False)
     Wrist = models.BooleanField(default=False)
@@ -144,7 +146,7 @@ class encounter(models.Model):
     AFO = models.BooleanField(default=False)
     Shoes = models.BooleanField(default=False)
 
-    #servies
+    #Exit Status
     Return = models.BooleanField(default=False)
     Discharged = models.BooleanField(default=False)
     Refer_Out = models.BooleanField(default=False)
