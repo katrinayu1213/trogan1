@@ -45,34 +45,42 @@ def c_demographics(request):
     form = PatientForm()
     return render(request, 'crispy_demographics.html', {'form': form})
 
-class PatientListView(LoginRequiredMixin, ListView):
+class PTPatientListView(LoginRequiredMixin, ListView):
   model = patient
-  template_name = 'patient_list.html'
+  template_name = 'pt_incoming.html'
   context_object_name = 'patients'
   ordering = ['id']
 
   def get_context_data(self, **kwargs):
-    context = super(PatientListView, self).get_context_data(**kwargs)
+    context = super(PTPatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.all().order_by('-order_ID', 'card_ID', 'id'))
+    usergroup = self.request.user.groups.values_list('name', flat=True).first()
+    print(usergroup)
+
+    table = PatientTable(patient.objects.filter(status='W', department='PT', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+
     RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
     context['table'] = table
     return context
 
-class MyPatientListView(LoginRequiredMixin, ListView):
-  model = patient
-  template_name = 'provider_patient_list.html'
-  context_object_name = 'patients'
-  ordering = ['id']
 
-  def get_context_data(self, **kwargs):
-    context = super(MyPatientListView, self).get_context_data(**kwargs)
-    context['nav_patient'] = True
-    table = PatientTable(patient.objects.filter(provider_id=self.request.user).order_by('-order_ID', 'card_ID', 'id'))
-    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
-    context['table'] = table
-    return context
+class GMPatientListView(LoginRequiredMixin, ListView):
+    model = patient
+    template_name = 'gm_incoming.html'
+    context_object_name = 'patients'
+    ordering = ['id']
 
+    def get_context_data(self, **kwargs):
+        context = super(GMPatientListView, self).get_context_data(**kwargs)
+        context['nav_patient'] = True
+        usergroup = self.request.user.groups.values_list('name', flat=True).first()
+        print(usergroup)
+
+        table = PatientTable(patient.objects.filter(status='W', department='GM', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+
+        RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+        context['table'] = table
+        return context
 
 class HomePatientListView(LoginRequiredMixin, ListView):
   model = patient
@@ -83,24 +91,18 @@ class HomePatientListView(LoginRequiredMixin, ListView):
   def get_context_data(self, **kwargs):
     context = super(HomePatientListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
-    table = PatientTable(patient.objects.filter(provider_id=self.request.user, status='W', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+    usergroup = self.request.user.groups.values_list('name', flat=True).first()
+    print(usergroup)
+    if usergroup == 'Physical Therapy':
+        table = PatientTable(patient.objects.filter(provider_id=self.request.user, status='W', department='PT', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+    elif usergroup == 'Gen Med':
+        table = PatientTable(patient.objects.filter(status='W', department='GM', created_at__day = timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+    else:
+        table = PatientTable(patient.objects.filter(status='W', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
     RequestConfig(self.request, paginate={'per_page': 10}).configure(table)
     context['table'] = table
     return context
 
-class MySeenListView(LoginRequiredMixin, ListView):
-    model = encounter
-    template_name = 'patient_list.html'
-    context_object_name = 'patients'
-    ordering = ['id']
-
-    def get_context_data(self, **kwargs):
-        context = super(MySeenListView, self).get_context_data(**kwargs)
-        context['nav_patient'] = True
-        table = EncounterTable(encounter.objects.select_related('patient_id').filter(provider_id=self.request.user).order_by('id'))
-        RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
-        context['table'] = table
-        return context
 
 def post_encounter(request):
     form = EncounterForm(request.POST)

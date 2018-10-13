@@ -8,8 +8,8 @@ class PatientTable(tables.Table):
     class Meta:
         model = patient
         fields = ('id', 'last_name',
-                  'first_name', 'sex', 'age',
-                  'pregnant', 'chief_complaint', 'provider_id','department', 'card_ID', 'order_ID', 'status')
+                  'first_name', 'age',
+                  'chief_complaint', 'provider_id','department', 'card_ID')
         attrs = {"class": "table-striped table-bordered"}
         empty_text = "There are no patients matching the search criteria"
 
