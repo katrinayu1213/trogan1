@@ -87,7 +87,7 @@ class patient(models.Model):
 
 
     class Meta(object):
-        ordering = ('my_order', 'card_ID', 'age')
+        ordering = ('my_order', '-order_ID', 'card_ID', 'id')
 
     def __str__(self):
         return str(self.id)
@@ -97,7 +97,7 @@ class patient(models.Model):
         return now - datetime.timedelta(hours=16) <= self.record_date <= now
 
     def save(self):
-        if self.age >= 60:
+        if self.age >= 60 or self.age<= 10:
             self.order_ID = 1
         super(patient, self).save()
 
