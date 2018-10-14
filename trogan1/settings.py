@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'trogan1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'trogan1',
+        'NAME': 'fall2018',
         'USER': 'lukie',
         'PASSWORD': 'standehr',
         'HOST': 'localhost',
