@@ -134,7 +134,7 @@ class encounter(models.Model):
     Gen_PT = models.BooleanField(default=False)
     Pelvic_Health = models.BooleanField(default=False)
 
-    Provider_Notes = models.TextField(max_length=500)
+    Provider_Notes = models.TextField(max_length=2000)
     Supplies_Used = models.TextField(max_length=500, default='none')
 
     Shoulder = models.BooleanField(default=False)
