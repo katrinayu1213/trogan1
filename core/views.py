@@ -103,6 +103,22 @@ class HomePatientListView(LoginRequiredMixin, ListView):
     context['table'] = table
     return context
 
+class HomeEncounterView(LoginRequiredMixin, ListView):
+    model = encounter
+    template_name = 'encounter_list.html'
+    context_object_name = 'encounters'
+    ordering = ['id']
+
+    def get_context_data(self, **kwargs):
+        context = super(HomeEncounterView, self).get_context_data(**kwargs)
+        context['nav_encounter'] = True
+
+        table = EncounterTable(encounter.objects.filter(created_at__day=timezone.now().day))
+
+        RequestConfig(self.request, paginate={'per_page': 10}).configure(table)
+        context['table'] = table
+        return context
+
 
 def post_encounter(request):
     form = EncounterForm(request.POST)

@@ -18,7 +18,6 @@ class EncounterTable(tables.Table):
 
     class Meta:
         model = encounter
-        fields = ('id', 'card_id', 'provider_id', "first_name", 'last_name',
-                  'sex', 'age', 'chief_complaint', 'Provider_Notes')
+        fields = ('id', 'card_id', 'Provider_Notes')
         attrs = {"class": "table-striped table-bordered"}
         empty_text = "There are no patients mathing the search criteria"
