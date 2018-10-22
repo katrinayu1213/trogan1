@@ -73,6 +73,7 @@ class patient(models.Model):
     heard_of_stand_how = models.CharField(max_length=200, blank=True)
     refugee_ever = models.CharField(max_length=1, choices=yes_no_choices, default=No)
     refugee_reason = models.CharField(max_length=500, blank=True)
+    recent_earthquake = models.CharField(max_length=1, choices=yes_no_choices, default=No)
     previous_patient = models.CharField(max_length=1, choices=yes_no_choices, default=No)
     pregnant = models.CharField(max_length=1, choices=yes_no_choices, default=No)
     created_at = models.DateTimeField(default=timezone.now)

@@ -9,7 +9,7 @@ class PatientForm(forms.ModelForm):
     class Meta:
         model = patient
         fields = ['first_name', 'last_name', 'age', 'phone', 'photo_permission', 'city', 'heard_of_stand', 'heard_of_stand_how',
-                  'refugee_ever', 'refugee_reason', 'previous_patient', 'sex', 'pregnant', 'chief_complaint', 'card_ID']
+                  'refugee_ever', 'refugee_reason', 'recent_earthquake', 'previous_patient', 'sex', 'pregnant', 'chief_complaint', 'card_ID']
     first_name = forms.CharField(
         required=True)
     last_name = forms.CharField(
@@ -58,6 +58,13 @@ class PatientForm(forms.ModelForm):
         required=True)
     refugee_reason = forms.CharField(
         required=False)
+    recent_earthquake = forms.TypedChoiceField(
+        label="Were you injured in the recent earthquake?",
+        choices=(('Y', 'Yes'), ('N', 'No')),
+        widget=forms.RadioSelect,
+        initial='N',
+        required=False
+    )
     previous_patient = forms.TypedChoiceField(
         label="Have we treated this patient before?",
         choices=(('Y', 'Yes'), ('N', 'No')),
@@ -99,6 +106,7 @@ class PatientForm(forms.ModelForm):
                     InlineRadios('previous_patient'),
                     InlineRadios('refugee_ever'),
                     Field('refugee_reason',placeholder='If yes, why?'),
+                    InlineRadios('recent_earthquake')
                     ),
            InlineRadios('heard_of_stand'),
            Field('heard_of_stand_how', placeholder='If yes, how?'),
