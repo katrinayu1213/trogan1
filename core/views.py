@@ -115,7 +115,7 @@ class HomeEncounterView(LoginRequiredMixin, ListView):
 
         table = EncounterTable(encounter.objects.filter(created_at__day=timezone.now().day))
 
-        RequestConfig(self.request, paginate={'per_page': 10}).configure(table)
+        RequestConfig(self.request, paginate={'per_page': 1000}).configure(table)
         context['table'] = table
         return context
 
