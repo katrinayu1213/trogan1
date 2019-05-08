@@ -119,6 +119,22 @@ class HomeEncounterView(LoginRequiredMixin, ListView):
         context['table'] = table
         return context
 
+class BeingSeenView(LoginRequiredMixin, ListView):
+    model = patient
+    template_name = 'being_seen.html'
+    context_object_name = 'being_seen'
+    ordering = ['id']
+
+    def get_context_data(self, **kwargs):
+        context = super(BeingSeenView, self).get_context_data(**kwargs)
+        context['nav_seen'] = True
+
+        table = PatientTable(patient.objects.filter(status='B', created_at__day=timezone.now().day))
+
+        RequestConfig(self.request, paginate={'per_page': 1000}).configure(table)
+        context['table'] = table
+        return context
+
 
 def post_encounter(request):
     form = EncounterForm(request.POST)

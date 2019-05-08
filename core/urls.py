@@ -17,4 +17,5 @@ urlpatterns = [
         url(r'^encounter/$', login_required(core_views.patient_encounter), name='patient_encounter'),
         url(r'^encounter/post_encounter/$', login_required(core_views.post_encounter), name='post_demogs'),
         url(r'^encounter_list/$', login_required(core_views.HomeEncounterView.as_view()), name='encounter_list'),
+        url(r'^being_seen/$', login_required(core_views.BeingSeenView.as_view()), name='being_seen'),
 ]
