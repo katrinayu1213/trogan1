@@ -150,3 +150,23 @@ def post_encounter(request):
 def patient_encounter(request):
     form = EncounterForm()
     return render(request, 'patient_encounter.html', {'form': form})
+
+
+class MyEncountersListView(LoginRequiredMixin, ListView):
+  model = encounter
+  template_name = 'my_encounters.html'
+  context_object_name = 'encounters'
+  ordering = ['id']
+
+  def get_context_data(self, **kwargs):
+    context = super(MyEncountersListView, self).get_context_data(**kwargs)
+    context['nav_patient'] = True
+    usergroup = self.request.user.groups.values_list('name', flat=True).first()
+    print(usergroup)
+
+    table = EncounterTable(encounter.objects.filter(provider_id=self.request.user).select_related() #.values_list('provider_id', 'patient_id', 'Provider_Notes', 'Supplies_Used', 'medication_list')
+)
+
+    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+    context['table'] = table
+    return context
