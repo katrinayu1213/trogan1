@@ -8,7 +8,7 @@
    <div class="container text-center">
        <div>
      {% if user.is_authenticated %}
-             <h1>Physical Therapy: Waiting</h1>
+             <h1>My Previous Encounters</h1>
              <h1>You are currently logged in as {{ user.username }}</h1>
        </div>
        <div>
@@ -24,7 +24,6 @@
 </div>
 <br>
 
-<h3>My Patients</h3>
 
 {% if table.page %}
   <div class="table-container">
