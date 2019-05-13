@@ -158,15 +158,31 @@ class MyEncountersListView(LoginRequiredMixin, ListView):
   context_object_name = 'encounters'
   ordering = ['id']
 
+
+
   def get_context_data(self, **kwargs):
     context = super(MyEncountersListView, self).get_context_data(**kwargs)
     context['nav_patient'] = True
     usergroup = self.request.user.groups.values_list('name', flat=True).first()
-    print(usergroup)
 
-    table = EncounterTable(encounter.objects.filter(provider_id=self.request.user).select_related() #.values_list('provider_id', 'patient_id', 'Provider_Notes', 'Supplies_Used', 'medication_list')
-)
+    encounters_select_related = encounter.objects.filter(provider_id=self.request.user).select_related()
+    my_encounters = []
 
-    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
-    context['table'] = table
+    for enc in encounters_select_related:
+        my_encounters.append({
+            'provider_id': enc.provider_id,
+            'patient_id': enc.patient_id,
+            'last_name': enc.patient_id.last_name,
+            'first_name': enc.patient_id.first_name,
+            'Provider_Notes': enc.Provider_Notes,
+            'Supplies_Used': enc.Supplies_Used,
+            'medication_list': enc.medication_list,
+        })
+
+    filtered_encounters = EncounterTable(my_encounters)
+    # EncounterTable(encounter.objects.filter(provider_id=self.request.user).select_related())
+    # print(my_encounters)
+
+    RequestConfig(self.request, paginate={'per_page': 30}).configure(filtered_encounters)
+    context['table'] = filtered_encounters
     return context
