@@ -177,6 +177,9 @@ class MyEncountersListView(LoginRequiredMixin, ListView):
             'Provider_Notes': enc.Provider_Notes,
             'Supplies_Used': enc.Supplies_Used,
             'medication_list': enc.medication_list,
+            'phone': enc.patient_id.phone,
+            'city': enc.patient_id.city
+
         })
 
     filtered_encounters = EncounterTable(my_encounters)

@@ -162,8 +162,9 @@ class WaitingPatientAdmin(AllPatientAdmin):
 
 # Encounters
 class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
-    list_display = ('patient_id', 'Supplies_Used', 'Provider_Notes'
-                    , 'provider_id', 'Systolic')
+
+    list_display = ('id', 'provider_id', 'patient_id', 'Supplies_Used', 'Provider_Notes'
+                    , 'medication_list', )
 
 
 admin.site.register(patient, AllPatientAdmin)
