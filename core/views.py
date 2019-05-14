@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PatientForm, EncounterForm
+from .forms import PatientForm, EncounterForm, PCSForm
 from django.http import HttpResponseRedirect, Http404
 from django.utils import timezone
 
@@ -135,7 +135,7 @@ class BeingSeenView(LoginRequiredMixin, ListView):
         context['table'] = table
         return context
 
-
+#define actions for posting an encounter form
 def post_encounter(request):
     form = EncounterForm(request.POST)
     if not request.user.is_authenticated():
@@ -150,6 +150,23 @@ def post_encounter(request):
 def patient_encounter(request):
     form = EncounterForm()
     return render(request, 'patient_encounter.html', {'form': form})
+
+
+#define actions for posting a PCS form
+def post_pcs(request):
+    form = PCSForm(request.POST)
+    if not request.user.is_authenticated():
+        raise Http404
+    if form.is_valid():
+        instance = form.save(commit=False)
+        instance.provider_id = request.user
+        instance.save()
+    return HttpResponseRedirect('/home/')
+
+def pcs(request):
+    form = PCSForm()
+    return render(request, 'pcs.html', {'form': form})
+
 
 
 class MyEncountersListView(LoginRequiredMixin, ListView):

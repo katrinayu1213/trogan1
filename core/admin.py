@@ -1,6 +1,6 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
-from .models import patient, encounter
+from .models import patient, encounter, pain_catastrophizing_scale
 from django.utils import timezone
 import datetime
 
@@ -166,6 +166,12 @@ class EncounterAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('id', 'provider_id', 'patient_id', 'Supplies_Used', 'Provider_Notes'
                     , 'medication_list', )
 
+# PCS Scores
+class PCSAdmin(SortableAdminMixin, admin.ModelAdmin):
+
+    list_display = ('id','provider_id','patient_id', 'q1_pcs', 'q2_pcs', 'q3_pcs','q4_pcs', 'q5_pcs', 'q6_pcs', 'q7_pcs', 'q8_pcs',  'q9_pcs', 'q10_pcs',
+         'q11_pcs', 'q12_pcs', 'q13_pcs',)
+
 
 admin.site.register(patient, AllPatientAdmin)
 admin.site.register(TodayPatient, TodayPatientAdmin)
@@ -178,4 +184,5 @@ admin.site.register(WoundPatient, WoundPatientAdmin)
 admin.site.register(PelvicPatient, PelvicPatientAdmin)
 admin.site.register(DischargedPatient, DischargedPatientAdmin)
 admin.site.register(WaitingPatient, WaitingPatientAdmin)
+admin.site.register(pain_catastrophizing_scale, PCSAdmin)
 

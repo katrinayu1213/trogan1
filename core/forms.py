@@ -1,8 +1,8 @@
 from django import forms
-from .models import patient, encounter
+from .models import patient, encounter, pain_catastrophizing_scale
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div, HTML
-from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab
+from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab, InlineCheckboxes
 from .models import imp_choices
 
 class PatientForm(forms.ModelForm):
@@ -297,3 +297,160 @@ class EncounterForm(forms.ModelForm):
         )
         self.helper.add_input(Submit('submit', 'Submit'))
 
+
+class PCSForm(forms.ModelForm):
+    class Meta:
+        model = pain_catastrophizing_scale
+        fields = ['patient_id', 'q1_pcs', 'q2_pcs', 'q3_pcs','q4_pcs', 'q5_pcs', 'q6_pcs', 'q7_pcs', 'q8_pcs',  'q9_pcs', 'q10_pcs',
+         'q11_pcs', 'q12_pcs', 'q13_pcs',]
+
+    # choices
+    zero = 0
+    one = 1
+    two = 2
+    three = 3
+    four = 4
+
+
+    #field definition
+    q1_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q2_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q3_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q4_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q5_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+
+    q6_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q7_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q8_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q9_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q10_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+
+    q11_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q12_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.RadioSelect,
+        required=False)
+    q13_pcs = forms.ChoiceField(
+        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        widget=forms.Select,
+        required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PCSForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+        self.helper.form_id = 'pcs'
+        self.helper.form_class = 'blueForms'
+        self.helper.form_method = 'post'
+        self.helper.form_action = "post_pcs/"
+        self.fields['patient_id'].queryset = patient.objects.all().order_by('-id')
+        self.helper.layout = Layout(
+            Fieldset('Patient ID',
+                     HTML("""<br>"""),
+                     'patient_id',
+                     HTML("""<br>"""),
+                     HTML("""<br>"""),
+                     ),
+           Fieldset('PCS',
+                    HTML("""<br>"""),
+                    HTML("""Mwen toujou ap enkyete’m eske doule sa ap fini"""),
+                    InlineCheckboxes('q1_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen pa kwe map viv"""),
+                    InlineCheckboxes('q2_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Li terib et mwen panse li pap janm rale mye"""),
+                    InlineCheckboxes('q3_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Li pa bon menm mwen santi li komanse depase"""),
+                    InlineCheckboxes('q4_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen santi’m pa kapab anko"""),
+                    InlineCheckboxes('q5_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen komanse pe mwen panse doule a ap vinn pi mal"""),
+                    InlineCheckboxes('q6_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen toujou ap panse ke mwen pral gen nouvo doule"""),
+                    InlineCheckboxes('q7_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen enkyete anpil mwen vle doule sa fini"""),
+                    InlineCheckboxes('q8_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen pa panse mwen ka retirel nan panse’m"""),
+                    InlineCheckboxes('q9_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen toujou ap panse de jan lap fem mal la"""),
+                    InlineCheckboxes('q10_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Mwen toujou ap panse mwen paka tan pou doule sa fini"""),
+                    InlineCheckboxes('q11_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Pa gen anyen mwen ka fe poum redui entansite doule a"""),
+                    InlineCheckboxes('q12_pcs'),
+                    HTML("""<br>"""),
+
+                    HTML("""<br>"""),
+                    HTML("""Map mande eske se pa yon bagay terib ki pral rive"""),
+                    InlineCheckboxes('q13_pcs'),
+                    HTML("""<br>"""),
+                    ),
+
+
+        )
+        self.helper.add_input(Submit('submit', 'Submit'))

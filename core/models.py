@@ -164,3 +164,32 @@ class encounter(models.Model):
         return str(self.id)
 
 
+class pain_catastrophizing_scale(models.Model):
+
+    patient_id = models.ForeignKey(patient, on_delete=models.CASCADE)
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+    q1_pcs = models.IntegerField(choices=imp_choices)
+    q2_pcs = models.IntegerField(choices=imp_choices)
+    q3_pcs = models.IntegerField(choices=imp_choices)
+    q4_pcs = models.IntegerField(choices=imp_choices)
+    q5_pcs = models.IntegerField(choices=imp_choices)
+
+    q6_pcs = models.IntegerField(choices=imp_choices)
+    q7_pcs = models.IntegerField(choices=imp_choices)
+    q8_pcs = models.IntegerField(choices=imp_choices)
+    q9_pcs = models.IntegerField(choices=imp_choices)
+    q10_pcs = models.IntegerField(choices=imp_choices)
+
+    q11_pcs = models.IntegerField(choices=imp_choices)
+    q12_pcs = models.IntegerField(choices=imp_choices)
+    q13_pcs = models.IntegerField(choices=imp_choices)
+
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+    my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta(object):
+        ordering = ['my_order', '-patient_id']
+
+    def __str__(self):
+        return str(self.id)
