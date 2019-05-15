@@ -314,57 +314,69 @@ class PCSForm(forms.ModelForm):
 
     #field definition
     q1_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'), (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q2_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q3_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q4_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q5_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
 
     q6_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q7_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q8_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q9_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q10_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
 
     q11_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q12_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q13_pcs = forms.ChoiceField(
-        choices=((zero, '0'), (one, '1'), (two, '2'), (three, '3'), (four, '4')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.Select,
         required=False)
 
