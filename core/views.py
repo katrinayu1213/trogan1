@@ -57,9 +57,9 @@ class PTPatientListView(LoginRequiredMixin, ListView):
     usergroup = self.request.user.groups.values_list('name', flat=True).first()
     print(usergroup)
 
-    table = PatientTable(patient.objects.filter(status='W', department='PT', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+    table = PatientTable(patient.objects.filter(status='W', department='PT', provider_id=1, created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
 
-    RequestConfig(self.request, paginate={'per_page': 30}).configure(table)
+    RequestConfig(self.request, paginate={'per_page': 20}).configure(table)
     context['table'] = table
     return context
 
@@ -94,12 +94,12 @@ class HomePatientListView(LoginRequiredMixin, ListView):
     usergroup = self.request.user.groups.values_list('name', flat=True).first()
     print(usergroup)
     if usergroup == 'Physical Therapy':
-        table = PatientTable(patient.objects.filter(provider_id=self.request.user, status='W', department='PT', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
+        table = PatientTable(patient.objects.filter(provider_id=self.request.user, status='W', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
     elif usergroup == 'Gen Med':
         table = PatientTable(patient.objects.filter(status='W', department='GM', created_at__day = timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
     else:
         table = PatientTable(patient.objects.filter(status='W', created_at__day=timezone.now().day).order_by('-order_ID', 'card_ID', 'id'))
-    RequestConfig(self.request, paginate={'per_page': 10}).configure(table)
+    RequestConfig(self.request, paginate={'per_page': 100}).configure(table)
     context['table'] = table
     return context
 
@@ -203,6 +203,6 @@ class MyEncountersListView(LoginRequiredMixin, ListView):
     # EncounterTable(encounter.objects.filter(provider_id=self.request.user).select_related())
     # print(my_encounters)
 
-    RequestConfig(self.request, paginate={'per_page': 30}).configure(filtered_encounters)
+    RequestConfig(self.request, paginate={'per_page': 50}).configure(filtered_encounters)
     context['table'] = filtered_encounters
     return context
