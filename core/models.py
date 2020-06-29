@@ -81,7 +81,7 @@ class patient(models.Model):
     my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
     status = models.CharField(max_length=2, choices=status_choices, default=waiting)
     department = models.CharField(max_length=2, choices=dept_choices, default=pt)
-    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, default=1)
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, default=1, on_delete=models.CASCADE)
     photo_permission = models.CharField(max_length=1, choices=yes_no_choices, default=No)
     card_ID = models.IntegerField(blank=False, null=False)
     order_ID = models.IntegerField(blank=False, null=False, default=0)
@@ -154,7 +154,7 @@ class encounter(models.Model):
 
     created_at = models.DateTimeField(default=timezone.now)
     my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
-    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 
     class Meta(object):
@@ -167,7 +167,7 @@ class encounter(models.Model):
 class pain_catastrophizing_scale(models.Model):
 
     patient_id = models.ForeignKey(patient, on_delete=models.CASCADE)
-    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     q1_pcs = models.IntegerField(choices=imp_choices)
     q2_pcs = models.IntegerField(choices=imp_choices)
@@ -185,7 +185,7 @@ class pain_catastrophizing_scale(models.Model):
     q12_pcs = models.IntegerField(choices=imp_choices)
     q13_pcs = models.IntegerField(choices=imp_choices)
 
-    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL)
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
 
     class Meta(object):
