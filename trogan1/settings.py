@@ -82,9 +82,9 @@ WSGI_APPLICATION = 'trogan1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'spring2019',
-        'USER': 'lukie',
-        'PASSWORD': 'standehr',
+        'NAME': 'trogan1',
+        'USER': 'username',
+        'PASSWORD': 'stand',
         'HOST': 'localhost',
         'PORT': '',
     }

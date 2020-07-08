@@ -5,34 +5,48 @@
 <html lang="en">
  <head>
    <meta charset="utf-8">
-   <link rel="stylesheet" type="text/css"
-           href="{% static 'bootstrap.css' %}" />
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!--   <link rel="stylesheet" type="text/css"-->
+<!--           href="{% static 'bootstrap.css' %}" />-->
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script type="text/javascript" src="{% static 'jQuery.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'bootstrap-tab.js' %}"></script>
+<!--    <script type="text/javascript" src="{% static 'bootstrap-tab.js' %}"></script>-->
     <script type="text/javascript" src="{% static 'popper.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'bootstrap.js' %}"></script>
-   <title>{% block title %}Trogan 1{% endblock %}</title>
+<!--    <script type="text/javascript" src="{% static 'bootstrap.js' %}"></script>-->
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!--   <title>{% block title %}Trogan 1{% endblock %}</title>-->
  </head>
  <body>
 <div class="container col-md-12 col-sm-6 col-xs-4">
-        <nav class="navbar navbar-light bg-faded">
+        <nav class="navbar navbar-expand-sm bg-faded navbar-light">
           <a class="navbar-brand" href="{% url 'home' %}">
             <img src="{% static 'images/stand_logo.jpg' %}" width="200" height="60" class="d-inline-block align-top" alt="">
           </a>
-          <h4 class="lead">Trogan 1</h4>
-          <div class="navbar navbar-light bg-faded" id="navbarNavAltMarkup">
+<!--          <h4 class="lead">Trogan 2</h4>-->
+<!--          <div class="navbar navbar-light bg-faded" id="navbarNavAltMarkup">-->
               {% if user.is_authenticated %}
               <a class="nav-item nav-link active" href="{% url 'home' %}">Home</a><br>
               <a class="nav-item nav-link active" href="{% url 'pt_incoming' %}">PT Incoming</a><br>
               <a class="nav-item nav-link active" href="{% url 'gm_incoming' %}">GM Incoming</a><br>
               <a class="nav-item nav-link active" href="{% url 'my_encounters' %}">My Encounters</a><br>
               <a class="nav-item nav-link active" href="{% url 'pcs' %}">Enter a Pain Score</a><br>
-
-              <a class="nav-item nav-link active" href="{% url 'logout' %}">Log Out</a>
+<!--              <a class="nav-link dropdown-toggle" href="{% url 'pcs' %}" id="navbardrop" data-toggle="dropdown">-->
+<!--                Questionnaires-->
+<!--              </a>-->
+<!--              <div class="dropdown-menu pull-right">-->
+<!--                <a class="dropdown-item" href="{% url 'pcs' %}">Pain Index 1</a>-->
+<!--                <a class="dropdown-item" href="#">Link 2</a>-->
+<!--                <a class="dropdown-item" href="#">Link 3</a>-->
+<!--              </div>-->
+              <a class="nav-item nav-link active ml-auto" href="{% url 'logout' %}">
+                  <button type = "button" class="btn btn-outline-primary navbar-right">Log Out</button>
+              </a>
               {% else %}
               <a class="nav-item nav-link active" href="{% url 'signup' %}">Sign Up</a>
               {% endif %}
-          </div>
+<!--          </div>-->
         </nav>
        </div>
    <main>
