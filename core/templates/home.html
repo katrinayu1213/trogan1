@@ -4,7 +4,8 @@
 {% load django_tables2 %}
 
 {% block content %}
-<div class="container col-md-12 col-sm-8 col-xs-4">
+<!--<div class="container col-md-12 col-sm-8 col-xs-4">-->
+<div class="container col-sm">
    <div class="container text-center">
        <div>
      {% if user.is_authenticated %}
@@ -23,33 +24,18 @@
 </div>
 <br>
 
-<h3>My Patients</h3>
+<div class="container text-center">
+    <h3>My Patients</h3>
 
-{% if table.page %}
-  <div class="table-container">
-{% endif %}
+    {% if table.page %}
+      <div class="table-container">
+    {% endif %}
 
-{% block table %}
-    <div class="table-responsive">
-        <table class="table table-hover table-bordered table-striped"{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
-            {% block table.thead %}
-            <thead>
-            <!--
-                <tr>
-                    <th><a href="{% url 'demographics' %}" class="btn btn-small btn-primary dark"><span class="hidden-phone"><i class="fa fa-user-plus"></i>Add Patient</span></a>
-
-                    </th>
-                    <th colspan="5">
-                        <form method="post" class="form-inline form-search pull-right">
-                          {% csrf_token %}
-                            <div>
-                              <input id="search_form_id" name="search" type="text" class="form-control col-md-3" placeholder="ID, First Name, Last Name"{% if search %} value="{{ search }}"{% endif %}>
-                              <button type="submit" class="btn btn-small btn-dark"><i class="fa fa-search"></i>Search</button>
-                            </div>
-                        </form>
-                    </th>
-                </tr>
-            -->
+    {% block table %}
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-striped"{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
+                {% block table.thead %}
+                <thead>
               <tr>
                 {% for column in table.columns %}
                     {% if column.orderable %}
@@ -87,6 +73,7 @@
     </div>
 {% endblock table %}
 
+</div>
 <!--{% if table.page %}
     {% block pagination %}
         {% bootstrap_pagination table.page url=request.get_full_path %}

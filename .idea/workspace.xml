@@ -3,7 +3,22 @@
   <component name="ChangeListManager">
     <list default="true" id="ddf0a846-c8fd-4bbf-9aba-9d594a4220e7" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/pt_incoming.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/pt_incoming.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bootstrap-tab.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bootstrap-theme.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bootstrap-theme.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bootstrap.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/bootstrap.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/bootstrap.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/bootstrap.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/bootstrap.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/bootstrap.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/glyphicons-halflings-regular.eot" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/glyphicons-halflings-regular.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/glyphicons-halflings-regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/glyphicons-halflings-regular.woff" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +37,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -38,9 +53,13 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="0" y="39" key="SettingsEditor" timestamp="1594168461746">
+    <state x="0" y="39" key="SettingsEditor" timestamp="1594177409115">
       <screen x="0" y="23" width="1280" height="738" />
     </state>
-    <state x="0" y="39" key="SettingsEditor/0.23.1280.738@0.23.1280.738" timestamp="1594168461746" />
+    <state x="0" y="39" key="SettingsEditor/0.23.1280.738@0.23.1280.738" timestamp="1594177409115" />
+    <state x="115" y="269" width="598" height="490" key="find.popup" timestamp="1594231179784">
+      <screen x="0" y="23" width="1280" height="738" />
+    </state>
+    <state x="115" y="269" width="598" height="490" key="find.popup/0.23.1280.738@0.23.1280.738" timestamp="1594231179784" />
   </component>
 </project>

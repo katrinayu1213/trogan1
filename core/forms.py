@@ -3,7 +3,18 @@ from .models import patient, encounter, pain_catastrophizing_scale
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div, HTML
 from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab, InlineCheckboxes
+from django.contrib.auth.forms import UserCreationForm
 from .models import imp_choices
+
+class RegistrationWithRole(UserCreationForm):
+    role = forms.CharField(
+        required=True,
+        widget=forms.Select(choices=(('PT', 'Physical Therapy'), ('GM', 'General Medicine'), ('Admin', 'Admin'))))
+
+    class Meta:
+        model = Profile
+        fields = ("username", "role", "password1", "password2")
+
 
 class PatientForm(forms.ModelForm):
     class Meta:

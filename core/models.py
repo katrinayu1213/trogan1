@@ -2,6 +2,17 @@ from django.db import models
 import datetime
 from django.utils import timezone
 from django.conf import settings
+from django.contrib.auth.models import User
+
+# roles
+Physical_Therapy= 'PT'
+General_Medicine = 'GM'
+Admin = 'Admin'
+role_choices = ((Physical_Therapy, 'PT'), (General_Medicine, 'GM'), (Admin, 'Admin'))
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=50, choices=role_choices, default='PT')
 
 #Model standard options
 
