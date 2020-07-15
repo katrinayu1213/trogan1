@@ -9,7 +9,7 @@
    <div class="container text-center">
        <div>
      {% if user.is_authenticated %}
-             <h1>You are currently logged in as {{ user.username }}</h1>
+             <h1>{{ user.username }}, {{ user.userprofile.role }} </h1>
        </div>
        <div>
              <p class="lead"><a href="{% url 'demographics' %}">Enter a New Patient</a></p>

@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PatientForm, EncounterForm, PCSForm
+from .forms import PatientForm, EncounterForm, PCSForm, RegistrationWithRole
 from django.http import HttpResponseRedirect, Http404
 from django.utils import timezone
 
@@ -11,11 +11,17 @@ from django_tables2 import RequestConfig
 from .models import patient, encounter
 from .tables import PatientTable, EncounterTable
 
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+        profile_form = RegistrationWithRole(request.POST)
+        if form.is_valid() and profile_form.is_valid():
+            user = form.save()
+            profile = profile_form.save(commit=False)  # create a new profile with data from the form
+            profile.user = user  # add user to profile
+            profile.save()
+
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
@@ -23,7 +29,10 @@ def signup(request):
             return redirect('home')
     else:
         form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+        profile_form = RegistrationWithRole()
+
+    context = {'form': form, 'profile_form': profile_form}  # context previously not used, allows us to pass 2 forms
+    return render(request, 'signup.html', context)
 
 def home(request):
     return render(request, 'home.html', {'table': table})

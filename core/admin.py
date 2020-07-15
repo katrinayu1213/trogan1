@@ -1,6 +1,6 @@
 from django.contrib import admin
 from adminsortable2.admin import SortableAdminMixin
-from .models import patient, encounter, pain_catastrophizing_scale
+from .models import patient, encounter, pain_catastrophizing_scale, UserProfile
 from django.utils import timezone
 import datetime
 
@@ -185,4 +185,5 @@ admin.site.register(PelvicPatient, PelvicPatientAdmin)
 admin.site.register(DischargedPatient, DischargedPatientAdmin)
 admin.site.register(WaitingPatient, WaitingPatientAdmin)
 admin.site.register(pain_catastrophizing_scale, PCSAdmin)
+admin.site.register(UserProfile)
 

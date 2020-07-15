@@ -5,15 +5,17 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div, HTM
 from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab, InlineCheckboxes
 from django.contrib.auth.forms import UserCreationForm
 from .models import imp_choices
+from .models import UserProfile
 
-class RegistrationWithRole(UserCreationForm):
+
+class RegistrationWithRole(forms.ModelForm):
     role = forms.CharField(
         required=True,
         widget=forms.Select(choices=(('PT', 'Physical Therapy'), ('GM', 'General Medicine'), ('Admin', 'Admin'))))
 
     class Meta:
-        model = Profile
-        fields = ("username", "role", "password1", "password2")
+        model = UserProfile
+        fields = ('role', )
 
 
 class PatientForm(forms.ModelForm):

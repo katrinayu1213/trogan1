@@ -10,7 +10,7 @@ General_Medicine = 'GM'
 Admin = 'Admin'
 role_choices = ((Physical_Therapy, 'PT'), (General_Medicine, 'GM'), (Admin, 'Admin'))
 
-class Profile(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=50, choices=role_choices, default='PT')
 
