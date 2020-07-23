@@ -11,9 +11,9 @@
              <h1>My Previous Encounters</h1>
              <h1>You are currently logged in as {{ user.username }}</h1>
        </div>
-       <div>
-             <p class="lead"><a href="{% url 'demographics' %}">Enter a New Patient</a></p>
-             <p class="lead"><a href="{% url 'patient_encounter' %}">Create a New Encounter</a></p>
+       <div class="enterInfo">
+            <button type="button" id="btn-enterPatient" class="btn btn-info"><a href="{% url 'demographics' %}">New Patient</a></button>
+            <button type="button" id="btn-enterDemographics" class="btn btn-success"><a href="{% url 'demographics' %}">New Encounter</a></button>
        </div>
      {% else %}
        <div>
@@ -24,10 +24,11 @@
 </div>
 <br>
 
-
-{% if table.page %}
+<div class="container text-center">
+        {% if table.page %}
   <div class="table-container">
 {% endif %}
+
 
 {% block table %}
     <div class="table-responsive">
