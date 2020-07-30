@@ -1,8 +1,8 @@
 from django import forms
-from .models import patient, encounter, pain_catastrophizing_scale
+from .models import patient, encounter, pain_catastrophizing_scale, pain_catastrophizing_scale2
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div, HTML
-from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab, InlineCheckboxes
+from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab
 from django.contrib.auth.forms import UserCreationForm
 from .models import imp_choices
 from .models import UserProfile
@@ -310,6 +310,63 @@ class EncounterForm(forms.ModelForm):
         )
         self.helper.add_input(Submit('submit', 'Submit'))
 
+class PCSForm2(forms.ModelForm):
+    class Meta:
+        model = pain_catastrophizing_scale2
+        fields = ['patient_id', 'q1_pcs', 'q2_pcs',]
+
+    # choices
+    zero = 0
+    one = 1
+    two = 2
+    three = 3
+    four = 4
+
+    # field definition
+    q1_pcs = forms.ChoiceField(
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
+        widget=forms.RadioSelect,
+        required=False)
+    q2_pcs = forms.ChoiceField(
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
+                 (three, '3 - to a great degree'), (four, '4 - all the time')),
+        widget=forms.RadioSelect,
+        required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PCSForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+        # you can also remove labels of built-in model properties
+        self.fields['name'].label = ''
+        self.helper.form_id = 'pcs'
+        self.helper.form_class = 'blueForms'
+        self.helper.form_method = 'post'
+        self.helper.form_action = "post_pcs/"
+        self.fields['patient_id'].queryset = patient.objects.all().order_by('-id')
+        self.helper.layout = Layout(
+            Fieldset('Patient ID',
+                     HTML("""<br>"""),
+                     'patient_id',
+                     HTML("""<br>"""),
+                     HTML("""<br>"""),
+                     ),
+            Fieldset('PCS',
+                     HTML("""<br>"""),
+                     HTML("""Mwen toujou ap enkyete’m eske doule sa ap fini"""),
+                     ('q1_pcs'),
+                     HTML("""<br>"""),
+
+                     HTML("""<br>"""),
+                     HTML("""Mwen pa kwe map viv"""),
+                     ('q2_pcs'),
+                     HTML("""<br>"""),
+                ),
+        ),
+
+        self.helper.add_input(Submit('submit', 'Submit'))
+
 
 class PCSForm(forms.ModelForm):
     class Meta:
@@ -327,7 +384,7 @@ class PCSForm(forms.ModelForm):
 
     #field definition
     q1_pcs = forms.ChoiceField(
-        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'), (three, '3 - to a great degree'), (four, '4 - all the time')),
+        choices=((zero, ' Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'), (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q2_pcs = forms.ChoiceField(
@@ -390,13 +447,18 @@ class PCSForm(forms.ModelForm):
     q13_pcs = forms.ChoiceField(
         choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
                  (three, '3 - to a great degree'), (four, '4 - all the time')),
-        widget=forms.Select,
+        widget=forms.RadioSelect,
         required=False)
 
     def __init__(self, *args, **kwargs):
         super(PCSForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_show_labels = False
+        for field_name in self.fields:
+            field = self.fields.get(field_name)
+            field.widget.attrs['placeholder'] = field.label
+            field.label = ''
+        # self.use_custom_control = True
         self.helper.form_id = 'pcs'
         self.helper.form_class = 'blueForms'
         self.helper.form_method = 'post'
@@ -412,67 +474,67 @@ class PCSForm(forms.ModelForm):
            Fieldset('PCS',
                     HTML("""<br>"""),
                     HTML("""Mwen toujou ap enkyete’m eske doule sa ap fini"""),
-                    InlineCheckboxes('q1_pcs'),
+                    ('q1_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen pa kwe map viv"""),
-                    InlineCheckboxes('q2_pcs'),
+                    ('q2_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Li terib et mwen panse li pap janm rale mye"""),
-                    InlineCheckboxes('q3_pcs'),
+                    ('q3_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Li pa bon menm mwen santi li komanse depase"""),
-                    InlineCheckboxes('q4_pcs'),
+                    ('q4_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen santi’m pa kapab anko"""),
-                    InlineCheckboxes('q5_pcs'),
+                    ('q5_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen komanse pe mwen panse doule a ap vinn pi mal"""),
-                    InlineCheckboxes('q6_pcs'),
+                    ('q6_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen toujou ap panse ke mwen pral gen nouvo doule"""),
-                    InlineCheckboxes('q7_pcs'),
+                    ('q7_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen enkyete anpil mwen vle doule sa fini"""),
-                    InlineCheckboxes('q8_pcs'),
+                    ('q8_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen pa panse mwen ka retirel nan panse’m"""),
-                    InlineCheckboxes('q9_pcs'),
+                    ('q9_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen toujou ap panse de jan lap fem mal la"""),
-                    InlineCheckboxes('q10_pcs'),
+                    ('q10_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Mwen toujou ap panse mwen paka tan pou doule sa fini"""),
-                    InlineCheckboxes('q11_pcs'),
+                    ('q11_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Pa gen anyen mwen ka fe poum redui entansite doule a"""),
-                    InlineCheckboxes('q12_pcs'),
+                    ('q12_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
                     HTML("""Map mande eske se pa yon bagay terib ki pral rive"""),
-                    InlineCheckboxes('q13_pcs'),
+                    ('q13_pcs'),
                     HTML("""<br>"""),
                     ),
 

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+
+{% block content %}
+<div class="container text-center col-md-8 col-sm-6 col-xs-4">
+<h2 class="brand">PCS Survey</h2>
+    <br>
+{% crispy form %}
+</div>
+<br>
+<br>
+{% endblock %}
+
+
+
+def index(response, id):
+    ls = scaleItems.objects.get(id=id)
+    if response.POST.get("submitForm"):
+        for item in ls.item_set.all()
+            if response.POST.get("c"+ str(item.id)) != ""
+                item.complete = True
+            else:
+                item.complete = False
+            item.save()

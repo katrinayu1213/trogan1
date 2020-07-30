@@ -204,3 +204,20 @@ class pain_catastrophizing_scale(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+class pain_catastrophizing_scale2(models.Model):
+
+    patient_id = models.ForeignKey(patient, on_delete=models.CASCADE)
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    q1_pcs = models.IntegerField(choices=imp_choices)
+    q2_pcs = models.IntegerField(choices=imp_choices)
+
+    provider_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    my_order = models.PositiveIntegerField(default=0, blank=False, null=False)
+
+    class Meta(object):
+        ordering = ['my_order', '-patient_id']
+
+    def __str__(self):
+        return str(self.id)

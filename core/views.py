@@ -11,7 +11,6 @@ from django_tables2 import RequestConfig
 from .models import patient, encounter
 from .tables import PatientTable, EncounterTable
 
-
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
