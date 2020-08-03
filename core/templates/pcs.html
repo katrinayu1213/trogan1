@@ -4,6 +4,10 @@
 {% load crispy_forms_tags %}
 {% crispy form form.helper %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'stylePCS.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="container text-center col-md-8 col-sm-6 col-xs-4">
 <h2 class="brand">PCS Survey</h2>
@@ -11,6 +15,5 @@
     <h5> Select Patient ID</h5>
 {% crispy form %}
 </div>
-<br>
-<br>
 {% endblock %}
+

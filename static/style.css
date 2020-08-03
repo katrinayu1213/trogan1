@@ -1,42 +1,17 @@
-input[type="radio"]{
-float:right;
-}
-
 body{
-    font-weight: 600;
+    font-weight: 500;
     font-size:20px;
 }
-
-label {
-    padding-left: 10px;
-    color: black;
-    font-weight: 400;
-    font-size: 14px;
-    display: flex;
-    justify-content: left;
-}
-
-.control-group {
-    background: #E8E8E8;
+.nav.nav-tabs{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    align: left;
-    border: 1px solid white;
-    border-radius: .5px;
-    padding-top: 10px;
-    padding-bottom: 20px;
+    justify-content: space-around;
 }
-.radio{
+.controls {
     display: flex;
-    flex-direction: row;
-    background: white;
-    border: .5px solid grey;
-    border-radius: 5px;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    padding-right: 10px;
-    padding-left: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items:center;
 }
 .hereLink {
     color: blue;
@@ -54,12 +29,17 @@ a {
 }
 
 #btn-enterPatient {
-    background:#52A8DC
+    background:#AECDE0;
     color: white;
+    border: none;
+    width: 200px;
+    height: 40px;
 }
 
 #btn-enterDemographics {
-    background:#4AA69D
+    background:#AEE0DB;
+    border: none;
+    width: 200px;
 }
 
 .enterInfo {
@@ -77,3 +57,4 @@ a {
 legend {
     display: none;
 }
+
