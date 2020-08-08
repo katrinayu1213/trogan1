@@ -137,10 +137,9 @@ class PatientForm(forms.ModelForm):
 class EncounterForm(forms.ModelForm):
     class Meta:
         model = encounter
-        fields = ['patient_id', 'Systolic', 'Diastolic', 'Infection_UTI', 'Infection_Vaginal', 'Infection_Other', 'Improvement',
-                    'Manual_Therapy', 'Education', 'Exercise', 'Gen_Med', 'Peds', 'Neuro',
-                    'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches',
-                    'Walker', 'Wheel_Chair', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back', 'Ankle', 'AFO', 'Provider_Notes',
+        fields = ['patient_id', 'Systolic', 'Diastolic', 'Infection_UTI', 'Infection_Vaginal', 'Infection_Other', 'Improvement', 'Gen_Med', 'Peds', 'Neuro',
+                    'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches', 'Cupping', 'Tape', 'Dry_Needle',
+                    'Walker', 'Wheel_Chair', 'Assistive_Devices', 'Orthotic_Devices', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back', 'Ankle', 'AFO', 'Provider_Notes',
                   'Supplies_Used', 'Back_Pain', 'Shoes', 'Gen_PT', 'Pelvic_Health','general_pain', 'Return', 'Discharged', 'Refer_Out'
                   , 'medication_list']
 
@@ -168,12 +167,6 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Infection_Other = forms.BooleanField(
         required=False)
-    Manual_Therapy = forms.BooleanField(
-        required=False)
-    Education = forms.BooleanField(
-        required=False)
-    Exercise = forms.BooleanField(
-        required=False)
     Gen_Med = forms.BooleanField(
         required=False)
     Peds = forms.BooleanField(
@@ -181,8 +174,6 @@ class EncounterForm(forms.ModelForm):
     Neuro = forms.BooleanField(
         required=False)
     Wound = forms.BooleanField(
-        required=False)
-    Orthotics = forms.BooleanField(
         required=False)
     Prosthetics = forms.BooleanField(
         required=False)
@@ -216,6 +207,12 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Shoes = forms.BooleanField(
         required=False)
+    Cupping = forms.BooleanField(
+        required=False)
+    Tape = forms.BooleanField(
+        required=False)
+    Dry_Needle = forms.BooleanField(
+        required=False)
     Return = forms.BooleanField(
         required=False)
     Discharged = forms.BooleanField(
@@ -230,7 +227,21 @@ class EncounterForm(forms.ModelForm):
         initial=0,
         widget=forms.Select,
         required=False)
-
+    Common_Supplies = forms.ChoiceField(
+        choices=((Cupping, 'Cupping'), (Tape, 'Tape'), (Dry_Needle, 'Dry Needle')),
+        initial=0,
+        widget=forms.CheckboxSelectMultiple,
+        required=False)
+    Assistive_Devices = forms.ChoiceField(
+        choices=((Cane, 'Cane'), (Crutches, 'Crutches'), (Walker, 'Walker'), (Wheel_Chair, 'Wheel Chair')),
+        initial=0,
+        widget=forms.CheckboxSelectMultiple,
+        required=False)
+    Orthotic_Devices = forms.ChoiceField(
+        choices=((Shoulder, 'Shoulder'), (Wrist, 'Wrist'), (Knee, 'Knee'), (Elbow, 'Elbow'), (Back, 'Back'), (Ankle, 'Ankle'), (AFO, 'AFO'), (Shoes, 'Shoes')),
+        initial=0,
+        widget=forms.CheckboxSelectMultiple,
+        required=False)
 
 
     def __init__(self, *args, **kwargs):
@@ -248,11 +259,12 @@ class EncounterForm(forms.ModelForm):
                     'Patient',
                     'patient_id',
                     'Provider_Notes',
-                    'medication_list',
-                    'Supplies_Used',
                     'Improvement',
                     HTML("""<img src=/static/images/groc.png width="700" height="200">
                 """),
+                    'Return',
+                    'Discharged',
+                    'Refer_Out',
                 ),
                 Tab(
                     'Condition',
@@ -263,49 +275,19 @@ class EncounterForm(forms.ModelForm):
                     'Infection_UTI',
                     'Infection_Vaginal',
                     'Infection_Other',
-
-                ),
-                Tab(
-                    'Treatment',
-                    'Manual_Therapy',
-                    'Education',
-                    'Exercise',
-                ),
-                Tab(
-                    'Services',
-                    'Gen_PT',
-                    'Gen_Med',
                     'Peds',
                     'Neuro',
                     'Wound',
-                    'Orthotics',
-                    'Prosthetics',
                     'Pelvic_Health'
+
                 ),
                 Tab(
-                    'Assistive Devices',
-                    'Cane',
-                    'Crutches',
-                    'Walker',
-                    'Wheel_Chair',
+                    'Supplies',
+                    'Common_Supplies',
+                    'Assistive_Devices',
+                    'Orthotic_Devices'
+
                 ),
-                Tab(
-                    'Orthotics',
-                    'Shoulder',
-                    'Wrist',
-                    'Knee',
-                    'Elbow',
-                    'Back',
-                    'Ankle',
-                    'AFO',
-                    'Shoes'
-                ),
-                Tab(
-                    'Plan',
-                    'Return',
-                    'Discharged',
-                    'Refer_Out'
-                )
             )
         )
         self.helper.add_input(Submit('submit', 'Submit'))

@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddf0a846-c8fd-4bbf-9aba-9d594a4220e7" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/static/stylePCS.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/styleEncounter.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/my_encounters.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/my_encounters.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/templates/patient_encounter.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/patient_encounter.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/templates/pcs.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/pcs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trogan1/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/trogan1/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,10 +52,11 @@
       <screen x="0" y="23" width="1280" height="738" />
     </state>
     <state x="0" y="39" key="SettingsEditor/0.23.1280.738@0.23.1280.738" timestamp="1594177409115" />
-    <state x="474" y="87" width="666" height="541" key="find.popup" timestamp="1596247443134">
-      <screen x="0" y="23" width="1280" height="728" />
+    <state x="614" y="210" width="666" height="548" key="find.popup" timestamp="1596825506252">
+      <screen x="0" y="23" width="1280" height="735" />
     </state>
     <state x="474" y="87" width="666" height="541" key="find.popup/0.23.1280.728@0.23.1280.728" timestamp="1596247443134" />
+    <state x="614" y="210" width="666" height="548" key="find.popup/0.23.1280.735@0.23.1280.735" timestamp="1596825506252" />
     <state x="614" y="213" width="666" height="548" key="find.popup/0.23.1280.738@0.23.1280.738" timestamp="1595443626592" />
     <state x="474" y="89" width="666" height="555" key="find.popup/0.23.1280.747@0.23.1280.747" timestamp="1596049439235" />
   </component>

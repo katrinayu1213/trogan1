@@ -125,9 +125,10 @@ class encounter(models.Model):
     Walker = models.BooleanField(default=False)
     Wheel_Chair = models.BooleanField(default=False)
 
-    Manual_Therapy = models.BooleanField(default=False)
-    Education = models.BooleanField(default=False)
-    Exercise = models.BooleanField(default=False)
+    Cupping = models.BooleanField(default=False)
+    Tape = models.BooleanField(default=False)
+    Dry_Needle = models.BooleanField(default=False)
+
     Improvement = models.IntegerField(choices=imp_choices)
 
     Systolic = models.CharField(max_length=4, blank=True, default='0')
