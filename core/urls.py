@@ -23,4 +23,5 @@ urlpatterns = [
 
         url(r'^pcs/$', login_required(core_views.pcs), name='pcs'),
         url(r'^pcs/post_pcs/$', login_required(core_views.post_pcs), name='post_pcs'),
+        url(r'^confirmation/$', login_required(core_views.post_pcs), name='pcs_confirmation'),
 ]

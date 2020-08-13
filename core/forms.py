@@ -1,12 +1,10 @@
 from django import forms
-from .models import patient, encounter, pain_catastrophizing_scale, pain_catastrophizing_scale2
+from .models import patient, encounter, pain_catastrophizing_scale, GMEncounter, UserProfile
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Div, HTML
 from crispy_forms.bootstrap import Field, InlineRadios, TabHolder, Tab
 from django.contrib.auth.forms import UserCreationForm
 from .models import imp_choices
-from .models import UserProfile
-
 
 class RegistrationWithRole(forms.ModelForm):
     role = forms.CharField(
@@ -24,8 +22,10 @@ class PatientForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'age', 'phone', 'photo_permission', 'city', 'heard_of_stand', 'heard_of_stand_how',
                   'refugee_ever', 'refugee_reason', 'recent_earthquake', 'previous_patient', 'sex', 'pregnant', 'chief_complaint', 'card_ID']
     first_name = forms.CharField(
+        label="First Name",
         required=True)
     last_name = forms.CharField(
+        label="Last Name",
         required=True)
     age = forms.CharField(
         required=True,
@@ -35,7 +35,7 @@ class PatientForm(forms.ModelForm):
     phone = forms.CharField(
         required=True)
     heard_of_stand = forms.TypedChoiceField(
-        label="Have you heard of Stand before?",
+        label="Have you heard of STAND before?",
         choices=(('Y', 'Yes'), ('N', 'No')),
         widget=forms.RadioSelect,
         initial='N',
@@ -112,7 +112,7 @@ class PatientForm(forms.ModelForm):
                     InlineRadios('photo_permission'),
                     ),
            Fieldset('Contact data',
-                    Field('city', placeholder='From What City?'),
+                    Field('city', placeholder='What City?'),
                     Field('phone', placeholder="Phone Number"),
                     ),
            Fieldset('Patient History',
@@ -132,16 +132,58 @@ class PatientForm(forms.ModelForm):
         self.helper.add_input(Submit('submit', 'Submit'))
 
 
+class GMEncounterForm(forms.ModelForm):
+    class Meta:
+        model = GMEncounter
+        fields = ['patient_id', 'Provider_Notes', 'Systolic', 'Diastolic', 'Medicine_List']
+
+    # field definition
+    Systolic = forms.CharField(
+        required=False)
+    Diastolic = forms.CharField(
+        required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(PCSForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_show_labels = False
+        for field_name in self.fields:
+            field = self.fields.get(field_name)
+            field.widget.attrs['placeholder'] = field.label
+            field.label = ''
+        # self.use_custom_control = True
+        self.helper.form_id = 'pcs'
+        self.helper.form_class = 'blueForms'
+        self.helper.form_method = 'post'
+        self.helper.form_action = "post_pcs/"
+        self.fields['patient_id'].queryset = patient.objects.all().order_by('-id')
+        self.helper.layout = Layout(
+            Fieldset('Patient ID',
+                     HTML("""<br>"""),
+                     'patient_id',
+                     HTML("""<br>"""),
+                     HTML("""<br>"""),
+                     ),
+                    HTML("""<br>"""),
+                    HTML("""Blood pressure"""),
+                    ('Systolic'),
+                    ('Diastolic'),
+                    HTML("""<br>"""),
+
+
+        )
+        self.helper.add_input(Submit('submit', 'Submit'))
 
 
 class EncounterForm(forms.ModelForm):
     class Meta:
         model = encounter
-        fields = ['patient_id', 'Systolic', 'Diastolic', 'Infection_UTI', 'Infection_Vaginal', 'Infection_Other', 'Improvement', 'Gen_Med', 'Peds', 'Neuro',
-                    'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches', 'Cupping', 'Tape', 'Dry_Needle',
-                    'Walker', 'Wheel_Chair', 'Assistive_Devices', 'Orthotic_Devices', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back', 'Ankle', 'AFO', 'Provider_Notes',
-                  'Supplies_Used', 'Back_Pain', 'Shoes', 'Gen_PT', 'Pelvic_Health','general_pain', 'Return', 'Discharged', 'Refer_Out'
-                  , 'medication_list']
+        fields = ['patient_id', 'Systolic', 'Diastolic', 'Infection_UTI', 'Infection_Vaginal', 'Infection_Other',
+                  'Improvement', 'Gen_Med', 'Peds', 'Neuro', 'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches',
+                  'Cupping', 'Tape', 'Dry_Needle', 'Walker', 'Wheel_Chair', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back',
+                  'Ankle', 'AFO', 'Provider_Notes', 'Supplies_Used', 'Back_Pain', 'Shoes', 'Gen_PT', 'Pelvic_Health',
+                  'general_pain']
+        # 'Next_Steps', 'Return', 'Discharged', 'Refer_Out'
 
     # choices
     neg_five = -5
@@ -213,12 +255,11 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Dry_Needle = forms.BooleanField(
         required=False)
-    Return = forms.BooleanField(
-        required=False)
-    Discharged = forms.BooleanField(
-        required=False)
-    Refer_Out = forms.BooleanField(
-        required=False)
+    # Next_Steps = forms.ChoiceField(
+    #     choices=((Return, 'Return'), (Discharged, 'Discharged'), (Refer_Out, 'Refer Out')),
+    #     initial=0,
+    #     widget=forms.CheckboxSelectMultiple,
+    #     required=False)
     general_pain = forms.BooleanField(
         required=False)
     Improvement = forms.ChoiceField(
@@ -262,12 +303,6 @@ class EncounterForm(forms.ModelForm):
                     'Improvement',
                     HTML("""<img src=/static/images/groc.png width="700" height="200">
                 """),
-                    'Return',
-                    'Discharged',
-                    'Refer_Out',
-                ),
-                Tab(
-                    'Condition',
                     'Systolic',
                     'Diastolic',
                     'general_pain',
@@ -278,8 +313,8 @@ class EncounterForm(forms.ModelForm):
                     'Peds',
                     'Neuro',
                     'Wound',
-                    'Pelvic_Health'
-
+                    'Pelvic_Health',
+                    'Next_Steps',
                 ),
                 Tab(
                     'Supplies',
@@ -290,63 +325,6 @@ class EncounterForm(forms.ModelForm):
                 ),
             )
         )
-        self.helper.add_input(Submit('submit', 'Submit'))
-
-class PCSForm2(forms.ModelForm):
-    class Meta:
-        model = pain_catastrophizing_scale2
-        fields = ['patient_id', 'q1_pcs', 'q2_pcs',]
-
-    # choices
-    zero = 0
-    one = 1
-    two = 2
-    three = 3
-    four = 4
-
-    # field definition
-    q1_pcs = forms.ChoiceField(
-        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
-                 (three, '3 - to a great degree'), (four, '4 - all the time')),
-        widget=forms.RadioSelect,
-        required=False)
-    q2_pcs = forms.ChoiceField(
-        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
-                 (three, '3 - to a great degree'), (four, '4 - all the time')),
-        widget=forms.RadioSelect,
-        required=False)
-
-    def __init__(self, *args, **kwargs):
-        super(PCSForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.form_show_labels = False
-        # you can also remove labels of built-in model properties
-        self.fields['name'].label = ''
-        self.helper.form_id = 'pcs'
-        self.helper.form_class = 'blueForms'
-        self.helper.form_method = 'post'
-        self.helper.form_action = "post_pcs/"
-        self.fields['patient_id'].queryset = patient.objects.all().order_by('-id')
-        self.helper.layout = Layout(
-            Fieldset('Patient ID',
-                     HTML("""<br>"""),
-                     'patient_id',
-                     HTML("""<br>"""),
-                     HTML("""<br>"""),
-                     ),
-            Fieldset('PCS',
-                     HTML("""<br>"""),
-                     HTML("""Mwen toujou ap enkyete’m eske doule sa ap fini"""),
-                     ('q1_pcs'),
-                     HTML("""<br>"""),
-
-                     HTML("""<br>"""),
-                     HTML("""Mwen pa kwe map viv"""),
-                     ('q2_pcs'),
-                     HTML("""<br>"""),
-                ),
-        ),
-
         self.helper.add_input(Submit('submit', 'Submit'))
 
 
@@ -455,67 +433,67 @@ class PCSForm(forms.ModelForm):
                      ),
            Fieldset('PCS',
                     HTML("""<br>"""),
-                    HTML("""Mwen toujou ap enkyete’m eske doule sa ap fini"""),
+                    HTML("""1. Mwen toujou ap enkyete’m eske doule sa ap fini"""),
                     ('q1_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen pa kwe map viv"""),
+                    HTML("""2. Mwen pa kwe map viv"""),
                     ('q2_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Li terib et mwen panse li pap janm rale mye"""),
+                    HTML("""3. Li terib et mwen panse li pap janm rale mye"""),
                     ('q3_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Li pa bon menm mwen santi li komanse depase"""),
+                    HTML("""4. Li pa bon menm mwen santi li komanse depase"""),
                     ('q4_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen santi’m pa kapab anko"""),
+                    HTML("""5. Mwen santi’m pa kapab anko"""),
                     ('q5_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen komanse pe mwen panse doule a ap vinn pi mal"""),
+                    HTML("""6. Mwen komanse pe mwen panse doule a ap vinn pi mal"""),
                     ('q6_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen toujou ap panse ke mwen pral gen nouvo doule"""),
+                    HTML("""7. Mwen toujou ap panse ke mwen pral gen nouvo doule"""),
                     ('q7_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen enkyete anpil mwen vle doule sa fini"""),
+                    HTML("""8. Mwen enkyete anpil mwen vle doule sa fini"""),
                     ('q8_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen pa panse mwen ka retirel nan panse’m"""),
+                    HTML("""9. Mwen pa panse mwen ka retirel nan panse’m"""),
                     ('q9_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen toujou ap panse de jan lap fem mal la"""),
+                    HTML("""10. Mwen toujou ap panse de jan lap fem mal la"""),
                     ('q10_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Mwen toujou ap panse mwen paka tan pou doule sa fini"""),
+                    HTML("""11. Mwen toujou ap panse mwen paka tan pou doule sa fini"""),
                     ('q11_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Pa gen anyen mwen ka fe poum redui entansite doule a"""),
+                    HTML("""12. Pa gen anyen mwen ka fe poum redui entansite doule a"""),
                     ('q12_pcs'),
                     HTML("""<br>"""),
 
                     HTML("""<br>"""),
-                    HTML("""Map mande eske se pa yon bagay terib ki pral rive"""),
+                    HTML("""13. Map mande eske se pa yon bagay terib ki pral rive"""),
                     ('q13_pcs'),
                     HTML("""<br>"""),
                     ),

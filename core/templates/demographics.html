@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% load crispy_forms_tags %}
 {% crispy form form.helper %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'stylePatient.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="container text-center col-md-8 col-sm-6 col-xs-1">

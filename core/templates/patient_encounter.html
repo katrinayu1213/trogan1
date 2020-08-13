@@ -14,7 +14,13 @@
 <div class="container text-center col-md-8 col-sm-6 col-xs-4">
 <h2 class="brand">Patient Encounter</h2>
     <br>
-{% crispy form %}
+
+    {% if user.userprofile.role == "PT" %}
+        <h1>im going to display pt form</h1>
+        {% crispy form %}
+    {% else %}
+        <h1>im going to display gm form</h1>
+    {% endif %}
 </div>
 <br>
 <br>

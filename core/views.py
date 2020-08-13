@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django_tables2 import RequestConfig
 from .models import patient, encounter
 from .tables import PatientTable, EncounterTable
+from django.contrib import messages
 
 def signup(request):
     if request.method == 'POST':
@@ -159,23 +160,23 @@ def patient_encounter(request):
     form = EncounterForm()
     return render(request, 'patient_encounter.html', {'form': form})
 
-
 #define actions for posting a PCS form
 def post_pcs(request):
     form = PCSForm(request.POST)
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         raise Http404
     if form.is_valid():
         instance = form.save(commit=False)
         instance.provider_id = request.user
         instance.save()
-    return HttpResponseRedirect('/home/')
+        return render(request, 'pcs_confirmation.html')
+    else:
+        return HttpResponseRedirect('/home/')
+
 
 def pcs(request):
     form = PCSForm()
     return render(request, 'pcs.html', {'form': form})
-
-
 
 class MyEncountersListView(LoginRequiredMixin, ListView):
   model = encounter
