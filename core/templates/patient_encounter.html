@@ -16,7 +16,6 @@
     <br>
 
     {% if user.userprofile.role == "PT" %}
-        <h1>im going to display pt form</h1>
         {% crispy form %}
     {% else %}
         <h1>im going to display gm form</h1>

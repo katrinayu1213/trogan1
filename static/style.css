@@ -1,3 +1,7 @@
+a:hover {
+    text-decoration: none;
+}
+
 body{
     font-weight: 500;
     font-size:20px;
@@ -34,15 +38,19 @@ a {
 }
 #btn-enterPatient {
     background: #AECDE0;
-    border-color: #AECDE0;
-    width: 200px;
-    height: 40px;
+    font-size: x-large;
+    border: none;
+    width: 250px;
+    height: 80px;
 }
 
 #btn-enterDemographics {
     background:#AEE0DB;
-    border-color: #AEE0DB;
-    width: 200px;
+    font-size: x-large;
+    border: none;
+    width: 250px;
+    height: 80px;
+
 }
 
 .enterInfo {

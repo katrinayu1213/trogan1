@@ -300,11 +300,6 @@ class EncounterForm(forms.ModelForm):
                     'Patient',
                     'patient_id',
                     'Provider_Notes',
-                    'Improvement',
-                    HTML("""<img src=/static/images/groc.png width="700" height="200">
-                """),
-                    'Systolic',
-                    'Diastolic',
                     'general_pain',
                     'Back_Pain',
                     'Infection_UTI',
@@ -315,6 +310,11 @@ class EncounterForm(forms.ModelForm):
                     'Wound',
                     'Pelvic_Health',
                     'Next_Steps',
+                    'Systolic',
+                    'Diastolic',
+                    'Improvement',
+                    HTML("""<img src=/static/images/groc.png width="700" height="200">
+                        """),
                 ),
                 Tab(
                     'Supplies',
@@ -344,7 +344,7 @@ class PCSForm(forms.ModelForm):
 
     #field definition
     q1_pcs = forms.ChoiceField(
-        choices=((zero, ' Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'), (three, '3 - to a great degree'), (four, '4 - all the time')),
+        choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'), (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
     q2_pcs = forms.ChoiceField(
@@ -393,7 +393,6 @@ class PCSForm(forms.ModelForm):
                  (three, '3 - to a great degree'), (four, '4 - all the time')),
         widget=forms.RadioSelect,
         required=False)
-
     q11_pcs = forms.ChoiceField(
         choices=((zero, '0 - Not at all'), (one, '1 - to a slight degree'), (two, '2 - to a moderate degree'),
                  (three, '3 - to a great degree'), (four, '4 - all the time')),
