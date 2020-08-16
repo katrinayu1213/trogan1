@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import PatientForm, EncounterForm, PCSForm, RegistrationWithRole
+from .forms import PatientForm, EncounterForm, PCSForm, RegistrationWithRole, GMEncounterForm
 from django.http import HttpResponseRedirect, Http404
 from django.utils import timezone
 
@@ -144,6 +144,7 @@ class BeingSeenView(LoginRequiredMixin, ListView):
         context['table'] = table
         return context
 
+
 #define actions for posting an encounter form
 def post_encounter(request):
     form = EncounterForm(request.POST)
@@ -156,8 +157,14 @@ def post_encounter(request):
      #   form.save(commit=True)
     return HttpResponseRedirect('/home/')
 
+
 def patient_encounter(request):
     form = EncounterForm()
+    return render(request, 'patient_encounter.html', {'form': form})
+
+
+def gm_encounter(request):
+    form = GMEncounterForm()
     return render(request, 'patient_encounter.html', {'form': form})
 
 #define actions for posting a PCS form

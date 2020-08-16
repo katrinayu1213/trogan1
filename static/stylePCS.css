@@ -1,3 +1,7 @@
+#div_id_patient_id {
+    padding-top: 15px;
+    padding-bottom: 0px;
+}
 button, input, optgroup, select, textarea{
     margin: 10px;
     position:relative;
@@ -39,11 +43,9 @@ input[type="radio"] {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    align: left;
-    border: 1px solid white;
-    border-radius: 30px;
+    border-radius: 10px;
     padding-top: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 legend {
     display: none;

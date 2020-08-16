@@ -137,14 +137,12 @@ class encounter(models.Model):
     Infection_Vaginal = models.BooleanField(default=False)
     Infection_Other = models.BooleanField(default=False)
 
-    Gen_Med = models.BooleanField(default=False)
     Orthotics = models.BooleanField(default=False)
     Prosthetics = models.BooleanField(default=False)
     Refer_Out_Of_Stand = models.BooleanField(default=False)
     Neuro = models.BooleanField(default=False)
     Peds = models.BooleanField(default=False)
     Wound = models.BooleanField(default=False)
-    Gen_PT = models.BooleanField(default=False)
     Pelvic_Health = models.BooleanField(default=False)
 
     Provider_Notes = models.TextField(max_length=2000)
@@ -181,7 +179,7 @@ class GMEncounter(models.Model):
     Systolic = models.CharField(max_length=4, blank=True, default='0')
     Diastolic = models.CharField(max_length=4, blank=True, default='0')
     Provider_Notes = models.TextField(max_length=2000)
-    Medicine_List = models.TextField(max_length=500, default='none')
+    Medicine_List = models.TextField(max_length=2000)
 
 class pain_catastrophizing_scale(models.Model):
 

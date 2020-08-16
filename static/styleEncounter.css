@@ -1,30 +1,42 @@
+#id_Provider_Notes{
+    height: 100px;
+    width: 1000px;
+}
+#div_id_Provider_Notes{
+    position: relative;
+    top: 10px;
+}
+#div_id_Common_Diagnoses{
+    position: relative;
+    top: 20px;
+}
+#div_id_Patient_Type{
+    position: relative;
+    top: 30px;
+}
 #div_id_Systolic {
     position: relative;
     left: -180px;
-    top: 10px;
+    top: 40px;
 }
 #div_id_Diastolic {
     position: relative;
     right: -200px;
-    top: -74px;
+    top: -40px;
+}
+#div_id_Orthotic_Devices{
+  position: relative;
+  top: 90px;
+}
+#submit-id-submit{
+  position: relative;
+  top: 110px;
 }
 #div_id_Assistive_Devices{
     position: relative;
     top: 50px;
 }
-#div_id_Common_Supplies {
-  position: relative;
-  top: 20px;
-}
 
-#div_id_Orthotic_Devices{
-  position: relative;
-  top: 70px;
-}
-#submit-id-submit{
-  position: relative;
-  top: 80px;
-}
 
 button, input, optgroup, select, textarea {
     margin: 5px;

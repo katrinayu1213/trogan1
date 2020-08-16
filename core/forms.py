@@ -144,9 +144,9 @@ class GMEncounterForm(forms.ModelForm):
         required=False)
 
     def __init__(self, *args, **kwargs):
-        super(PCSForm, self).__init__(*args, **kwargs)
+        super(GMEncounterForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_show_labels = False
+        self.helper.form_show_labels = True;
         for field_name in self.fields:
             field = self.fields.get(field_name)
             field.widget.attrs['placeholder'] = field.label
@@ -168,6 +168,8 @@ class GMEncounterForm(forms.ModelForm):
                     HTML("""Blood pressure"""),
                     ('Systolic'),
                     ('Diastolic'),
+                    'Medicine_List',
+                    'Provider_Notes',
                     HTML("""<br>"""),
 
 
@@ -178,11 +180,10 @@ class GMEncounterForm(forms.ModelForm):
 class EncounterForm(forms.ModelForm):
     class Meta:
         model = encounter
-        fields = ['patient_id', 'Systolic', 'Diastolic', 'Infection_UTI', 'Infection_Vaginal', 'Infection_Other',
-                  'Improvement', 'Gen_Med', 'Peds', 'Neuro', 'Wound', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches',
+        fields = ['patient_id', 'Systolic', 'Diastolic', 'Common_Diagnoses',
+                  'Improvement', 'Patient_Type', 'Orthotics', 'Prosthetics', 'Cane', 'Crutches',
                   'Cupping', 'Tape', 'Dry_Needle', 'Walker', 'Wheel_Chair', 'Shoulder', 'Wrist', 'Knee', 'Elbow', 'Back',
-                  'Ankle', 'AFO', 'Provider_Notes', 'Supplies_Used', 'Back_Pain', 'Shoes', 'Gen_PT', 'Pelvic_Health',
-                  'general_pain']
+                  'Ankle', 'AFO', 'Provider_Notes', 'Supplies_Used', 'Back_Pain', 'Shoes']
         # 'Next_Steps', 'Return', 'Discharged', 'Refer_Out'
 
     # choices
@@ -203,13 +204,13 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Diastolic = forms.CharField(
         required=False)
+    general_pain = forms.BooleanField(
+        required=False)
     Infection_UTI = forms.BooleanField(
         required=False)
     Infection_Vaginal = forms.BooleanField(
         required=False)
     Infection_Other = forms.BooleanField(
-        required=False)
-    Gen_Med = forms.BooleanField(
         required=False)
     Peds = forms.BooleanField(
         required=False)
@@ -255,18 +256,32 @@ class EncounterForm(forms.ModelForm):
         required=False)
     Dry_Needle = forms.BooleanField(
         required=False)
-    # Next_Steps = forms.ChoiceField(
-    #     choices=((Return, 'Return'), (Discharged, 'Discharged'), (Refer_Out, 'Refer Out')),
-    #     initial=0,
-    #     widget=forms.CheckboxSelectMultiple,
-    #     required=False)
-    general_pain = forms.BooleanField(
+    Return = forms.BooleanField(
+        required=False)
+    Discharged = forms.BooleanField(
+        required=False)
+    Refer_Out = forms.BooleanField(
+        required=False)
+    Next_Steps = forms.ChoiceField(
+        choices=((Return, 'Return'), (Discharged, 'Discharged'), (Refer_Out, 'Refer Out')),
+        initial=0,
+        widget=forms.CheckboxSelectMultiple,
         required=False)
     Improvement = forms.ChoiceField(
         choices=((neg_five, '-5'), (neg_four, '-4'), (neg_three, '-3'), (neg_two, '-2'), (neg_one, -1), (zero, '0'), (one, '1'),
                (two, '2'), (three, '3'), (four, '4'), (five, '5')),
         initial=0,
         widget=forms.Select,
+        required=False)
+    Common_Diagnoses = forms.ChoiceField(
+        choices=((general_pain, 'General Pain'), (Back_Pain, 'Back Pain'), (Infection_UTI, 'Infection UTI'), (Infection_Vaginal, 'Infection Vaginal'), (Infection_Other, 'Infection Other')),
+        initial=0,
+        widget=forms.CheckboxSelectMultiple,
+        required=False)
+    Patient_Type = forms.ChoiceField(
+        choices=((Pelvic_Health, 'Pelvic Health'), (Wound, 'Wound'), (Neuro, 'Neuro'), (Peds, 'Peds')),
+        initial=0,
+        widget=forms.CheckboxSelectMultiple,
         required=False)
     Common_Supplies = forms.ChoiceField(
         choices=((Cupping, 'Cupping'), (Tape, 'Tape'), (Dry_Needle, 'Dry Needle')),
@@ -300,18 +315,11 @@ class EncounterForm(forms.ModelForm):
                     'Patient',
                     'patient_id',
                     'Provider_Notes',
-                    'general_pain',
-                    'Back_Pain',
-                    'Infection_UTI',
-                    'Infection_Vaginal',
-                    'Infection_Other',
-                    'Peds',
-                    'Neuro',
-                    'Wound',
-                    'Pelvic_Health',
-                    'Next_Steps',
+                    'Common_Diagnoses',
+                    'Patient_Type',
                     'Systolic',
                     'Diastolic',
+                    'Next_Steps',
                     'Improvement',
                     HTML("""<img src=/static/images/groc.png width="700" height="200">
                         """),
