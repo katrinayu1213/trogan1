@@ -12,8 +12,12 @@
              <h4>{{ user.username }}, {{ user.userprofile.role }} </h4>
        </div>
        <div class="enterInfo">
-            <button type="button" id="btn-enterPatient" class="btn btn-info"><a href="{% url 'demographics' %}">New Patient</a></button>
-            <button type="button" id="btn-enterDemographics" class="btn btn-success"><a href="{% url 'patient_encounter' %}">New Encounter</a></button>
+           <button type="button" id="btn-enterPatient" class="btn btn-info"><a href="{% url 'demographics' %}">New Patient</a></button>
+           {% if user.userprofile.role == "PT" %}
+                <button type="button" id="btn-enterEncounterPT" class="btn btn-success"><a href="{% url 'patient_encounter' %}">New Encounter</a></button>
+           {% else %}
+                <button type="button" id="btn-enterEncounterGM" class="btn btn-success"><a href="{% url 'gm_encounter' %}">New Encounter</a></button>
+           {% endif %}
        </div>
      {% else %}
        <div>

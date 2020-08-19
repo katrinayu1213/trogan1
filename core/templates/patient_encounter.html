@@ -7,7 +7,11 @@
 {% crispy form form.helper %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'styleEncounter.css' %}">
+    {% if user.userprofile.role == "PT" %}
+        <link rel="stylesheet" href="{% static 'styleEncounter.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'styleEncounterGM.css' %}">
+    {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -16,6 +20,14 @@
     <br>
         {% crispy form %}
 </div>
+
+<div id="scale">
+    {% if user.userprofile.role == "PT" %}
+        <img src=/static/images/groc.png width="700" height="200">
+    {% else %}
+    {% endif %}
+</div>
+
 <br>
 <br>
 {% endblock %}

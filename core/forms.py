@@ -135,13 +135,7 @@ class PatientForm(forms.ModelForm):
 class GMEncounterForm(forms.ModelForm):
     class Meta:
         model = GMEncounter
-        fields = ['patient_id', 'Provider_Notes', 'Systolic', 'Diastolic', 'Medicine_List']
-
-    # field definition
-    Systolic = forms.CharField(
-        required=False)
-    Diastolic = forms.CharField(
-        required=False)
+        fields = ['patient_id', 'GM_Provider_Notes', 'Systolic', 'Diastolic', 'GM_Medicine_List']
 
     def __init__(self, *args, **kwargs):
         super(GMEncounterForm, self).__init__(*args, **kwargs)
@@ -159,17 +153,19 @@ class GMEncounterForm(forms.ModelForm):
         self.fields['patient_id'].queryset = patient.objects.all().order_by('-id')
         self.helper.layout = Layout(
             Fieldset('Patient ID',
-                     HTML("""<br>"""),
                      'patient_id',
-                     HTML("""<br>"""),
-                     HTML("""<br>"""),
                      ),
                     HTML("""<br>"""),
-                    HTML("""Blood pressure"""),
-                    ('Systolic'),
-                    ('Diastolic'),
-                    'Medicine_List',
-                    'Provider_Notes',
+                    HTML("""<h4 class="customizedLabel">Blood pressure</h4>"""),
+                    'Systolic',
+                    'Diastolic',
+                    HTML("""<br>"""),
+                    HTML("""<h4 class="customizedLabel">Medicine List</h4>"""),
+                    'GM_Medicine_List',
+                    HTML("""<br>"""),
+                    HTML("""<br>"""),
+                    HTML("""<h4 class="customizedLabel">Provider Notes</h4>"""),
+                    'GM_Provider_Notes',
                     HTML("""<br>"""),
 
 
@@ -219,8 +215,6 @@ class EncounterForm(forms.ModelForm):
     Wound = forms.BooleanField(
         required=False)
     Prosthetics = forms.BooleanField(
-        required=False)
-    Gen_PT = forms.BooleanField(
         required=False)
     Pelvic_Health = forms.BooleanField(
         required=False)
@@ -321,8 +315,6 @@ class EncounterForm(forms.ModelForm):
                     'Diastolic',
                     'Next_Steps',
                     'Improvement',
-                    HTML("""<img src=/static/images/groc.png width="700" height="200">
-                        """),
                 ),
                 Tab(
                     'Supplies',

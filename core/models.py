@@ -176,10 +176,10 @@ class encounter(models.Model):
 
 class GMEncounter(models.Model):
     patient_id = models.ForeignKey(patient, on_delete=models.CASCADE)
-    Systolic = models.CharField(max_length=4, blank=True, default='0')
-    Diastolic = models.CharField(max_length=4, blank=True, default='0')
-    Provider_Notes = models.TextField(max_length=2000)
-    Medicine_List = models.TextField(max_length=2000)
+    Systolic = models.CharField(max_length=4, blank=True, default='Systolic')
+    Diastolic = models.CharField(max_length=4, blank=True, default='Diastolic')
+    GM_Provider_Notes = models.TextField(max_length=2000)
+    GM_Medicine_List = models.TextField(max_length=2000)
 
 class pain_catastrophizing_scale(models.Model):
 

@@ -43,14 +43,19 @@ a {
     width: 250px;
     height: 80px;
 }
-
-#btn-enterDemographics {
+#btn-enterEncounterPT {
     background:#AEE0DB;
     font-size: x-large;
     border: none;
     width: 250px;
     height: 80px;
-
+}
+#btn-enterEncounterGM {
+    background:#AEE0DB;
+    font-size: x-large;
+    border: none;
+    width: 250px;
+    height: 80px;
 }
 
 .enterInfo {

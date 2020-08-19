@@ -68,7 +68,6 @@ input[type="radio"]{
     padding-bottom: 50px;
     padding-left: 50px;
     width: 150px;
-    filter: drop-shadow(1px 1px 0px #7A868E);
 }
 .textInput {
     font-size: large;
