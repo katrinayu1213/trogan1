@@ -1,5 +1,5 @@
 # trogan1
-The first edition of the STAND Haiti patient tracking system
+The second edition of the STAND Haiti patient tracking system
 
 This project was created to aid the organization STAND: the Haiti Project in collecting information on patient
 demographics, treatment, and care plans. STAND (www.standhaitiproject.com) provides orthopedic rehabilitation in 
