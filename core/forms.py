@@ -315,6 +315,7 @@ class EncounterForm(forms.ModelForm):
                     'Diastolic',
                     'Next_Steps',
                     'Improvement',
+                    HTML("""<img id="groc" src=/static/images/groc.png width="700" height="200">"""),
                 ),
                 Tab(
                     'Supplies',

@@ -131,8 +131,8 @@ class encounter(models.Model):
 
     Improvement = models.IntegerField(choices=imp_choices)
 
-    Systolic = models.CharField(max_length=4, blank=True, default='0')
-    Diastolic = models.CharField(max_length=4, blank=True, default='0')
+    Systolic = models.CharField(max_length=4, blank=True, default='Systolic')
+    Diastolic = models.CharField(max_length=4, blank=True, default='Diastolic')
     Infection_UTI = models.BooleanField(default=False)
     Infection_Vaginal = models.BooleanField(default=False)
     Infection_Other = models.BooleanField(default=False)
